@@ -22,8 +22,9 @@ export class ConnectionsService {
     return this.http.delete(`${environment.serviceUrl}/question/${questionId}`);
   }
 
-  modifyQuestion(question: IQuestion) {
-    return this.http.put(`${environment.serviceUrl}/question`, question);
+  modifyQuestions(questions: IQuestion[]): Observable<IQuestion[]> {
+    questions.map((question, index) => question.priority = index);
+    return this.http.put<IQuestion[]>(`${environment.serviceUrl}/question`, questions);
   }
 
   createForm(formName: string): Observable<IForm> {

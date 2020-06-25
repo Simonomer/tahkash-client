@@ -5,7 +5,9 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { FormCreatorComponent } from './components/form-creator/form-creator.component';
 import {ConnectionsService} from "./services/connections.service";
-import {HttpClient, HttpClientModule} from "@angular/common/http";
+import {HttpClientModule} from "@angular/common/http";
+import {ReactiveFormsModule} from "@angular/forms";
+import {DragDropModule} from "@angular/cdk/drag-drop";
 
 @NgModule({
   declarations: [
@@ -15,7 +17,9 @@ import {HttpClient, HttpClientModule} from "@angular/common/http";
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    ReactiveFormsModule,
+    DragDropModule
   ],
   providers: [
     ConnectionsService

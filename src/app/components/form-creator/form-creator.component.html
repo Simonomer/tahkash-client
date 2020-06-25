@@ -1,0 +1,13 @@
+<div>
+  <input #inputValue (keydown.enter)="createQuestion(inputValue.value)">
+  <button (click)="createQuestion(inputValue.value)">Add</button>
+</div>
+
+<div cdkDropList class="question-list" (cdkDropListDropped)="drop($event)">
+  <div class="question-item" *ngFor="let question of questions" cdkDrag>
+    <span>{{question.text}}</span>
+    <button (click)="onDeleteClick(question)">X</button>
+  </div>
+</div>
+
+
