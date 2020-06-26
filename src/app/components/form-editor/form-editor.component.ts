@@ -7,7 +7,7 @@ import {ActivatedRoute} from "@angular/router";
 
 
 @Component({
-  selector: 'app-form-creator',
+  selector: 'form-creator',
   templateUrl: './form-editor.component.html',
   styleUrls: ['./form-editor.component.scss']
 })

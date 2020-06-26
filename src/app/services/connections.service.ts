@@ -32,10 +32,18 @@ export class ConnectionsService {
   }
 
   getAllForms(): Observable<IForm[]> {
-    return this.http.get<IForm[]>(`${environment.serviceUrl}/form`);
+    return this.http.get<IForm[]>(`${environment.serviceUrl}/form/true`);
   }
 
   modifyForm(form: IForm) {
     return this.http.put(`${environment.serviceUrl}/form`, form);
+  }
+
+  removeTag(tagId: string): Observable<any> {
+    return this.http.delete(`${environment.serviceUrl}/tag/${tagId}`)
+  }
+
+  removeTagFromForm(tagId: string, form: IForm) {
+    return this.modifyForm({...form, tags: form.tags.filter(tag => tag._id !== tagId)});
   }
 }

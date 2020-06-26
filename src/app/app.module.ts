@@ -8,11 +8,15 @@ import {ConnectionsService} from "./services/connections.service";
 import {HttpClientModule} from "@angular/common/http";
 import {ReactiveFormsModule} from "@angular/forms";
 import {DragDropModule} from "@angular/cdk/drag-drop";
+import { FormsManagementComponent } from './components/forms-management/forms-management.component';
+import { TagComponent } from './components/tag/tag.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    FormEditorComponent
+    FormEditorComponent,
+    FormsManagementComponent,
+    TagComponent
   ],
   imports: [
     BrowserModule,
