@@ -8,10 +8,10 @@ import {ActivatedRoute} from "@angular/router";
 
 @Component({
   selector: 'app-form-creator',
-  templateUrl: './form-creator.component.html',
-  styleUrls: ['./form-creator.component.scss']
+  templateUrl: './form-editor.component.html',
+  styleUrls: ['./form-editor.component.scss']
 })
-export class FormCreatorComponent implements OnInit {
+export class FormEditorComponent implements OnInit {
 
   questions: IQuestion[];
   formId: string;

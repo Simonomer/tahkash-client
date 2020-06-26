@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import {FormCreatorComponent} from "./components/form-creator/form-creator.component";
+import {FormEditorComponent} from "./components/form-editor/form-editor.component";
 
 
 const routes: Routes = [
-  { path: 'form/:formId', component: FormCreatorComponent }
+  { path: 'form/:formId', component: FormEditorComponent }
 ];
 
 @NgModule({
