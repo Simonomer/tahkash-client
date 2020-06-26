@@ -21,10 +21,7 @@ export class FormsManagementComponent implements OnInit {
 
   ngOnInit(): void {
     this.tagDeleted = new Subject<{ tagId: string, formId: string }>();
-    this.tagDeleted.subscribe(obj => {
-      this.connectionsService.removeTagFromForm(obj.tagId, this.forms.find(form => form._id === obj.formId))
-        .subscribe(() => this.updateForms());
-    });
+    this.tagDeleted.subscribe(obj => this.onTagDeleted(obj.tagId, obj.formId));
     this.updateForms();
   }
 
@@ -34,6 +31,11 @@ export class FormsManagementComponent implements OnInit {
 
   formClicked(formId: string) {
     this.router.navigate([formId], {relativeTo: this.activatedRoute})
+  }
+
+  onTagDeleted(tagId, formId) {
+    this.connectionsService.removeTagFromForm(tagId, this.forms.find(form => form._id === formId))
+      .subscribe(() => this.updateForms());
   }
 
 }

@@ -14,7 +14,7 @@ export class TagComponent implements OnInit {
   @Input() formId: string;
   @Input() tagDeleted: Subject<any>;
 
-  constructor(private connectionsService: ConnectionsService) { }
+  constructor() { }
 
   ngOnInit(): void {
   }
