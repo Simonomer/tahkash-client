@@ -6,7 +6,8 @@ import {FormsManagementComponent} from "./components/forms-management/forms-mana
 
 const routes: Routes = [
   { path: 'forms', component: FormsManagementComponent },
-  { path: 'forms/:formId', component: FormEditorComponent }
+  { path: 'forms/:formId', component: FormEditorComponent },
+  { path: '**', redirectTo: '/forms' }
 ];
 
 @NgModule({
