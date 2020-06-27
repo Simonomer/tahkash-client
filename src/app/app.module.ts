@@ -1,15 +1,16 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
-import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
-import { FormEditorComponent } from './components/form-editor/form-editor.component';
-import {ConnectionsService} from "./services/connections.service";
-import {HttpClientModule} from "@angular/common/http";
+import {AppComponent} from './app.component';
 import {ReactiveFormsModule} from "@angular/forms";
+import {AppRoutingModule} from './app-routing.module';
+import {HttpClientModule} from "@angular/common/http";
 import {DragDropModule} from "@angular/cdk/drag-drop";
-import { FormsManagementComponent } from './components/forms-management/forms-management.component';
-import { TagComponent } from './components/tag/tag.component';
+import {TagComponent} from './components/tag/tag.component';
+import {ConnectionsService} from "./services/connections.service";
+import {FormsManagementService} from "./services/forms.management.service";
+import { FormEditorComponent } from './components/form-editor/form-editor.component';
+import {FormsManagementComponent} from './components/forms-management/forms-management.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { TagComponent } from './components/tag/tag.component';
     DragDropModule
   ],
   providers: [
-    ConnectionsService
+    ConnectionsService,
+    FormsManagementService
   ],
   bootstrap: [AppComponent]
 })

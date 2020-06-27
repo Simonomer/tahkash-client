@@ -4,6 +4,7 @@ import { Component, OnInit } from '@angular/core';
 import {Subject} from "rxjs";
 import {IForm} from "../../models/form";
 import {ConnectionsService} from "../../services/connections.service";
+import {FormsManagementService} from "../../services/forms.management.service";
 
 @Component({
   selector: 'forms-management',
@@ -16,6 +17,7 @@ export class FormsManagementComponent implements OnInit {
   tagDeleted: Subject<{ tagId: string, formId: string }>;
 
   constructor(private connectionsService: ConnectionsService,
+              private formsManagementService: FormsManagementService,
               private router: Router,
               private activatedRoute: ActivatedRoute) { }
 
@@ -33,9 +35,13 @@ export class FormsManagementComponent implements OnInit {
     this.router.navigate([formId], {relativeTo: this.activatedRoute})
   }
 
-  onTagDeleted(tagId, formId) {
-    this.connectionsService.removeTagFromForm(tagId, this.forms.find(form => form._id === formId))
+  onTagDeleted(tagId: string, formId: string) {
+    this.formsManagementService.removeTagFromForm(tagId, this.forms.find(form => form._id === formId))
       .subscribe(() => this.updateForms());
+  }
+
+  onDuplicateForm(formId: string) {
+    this.connectionsService.duplicateForm(formId).subscribe(() => this.updateForms());
   }
 
 }

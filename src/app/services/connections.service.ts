@@ -40,10 +40,10 @@ export class ConnectionsService {
   }
 
   removeTag(tagId: string): Observable<any> {
-    return this.http.delete(`${environment.serviceUrl}/tag/${tagId}`)
+    return this.http.delete(`${environment.serviceUrl}/tag/${tagId}`);
   }
 
-  removeTagFromForm(tagId: string, form: IForm) {
-    return this.modifyForm({...form, tags: form.tags.filter(tag => tag._id !== tagId)});
+  duplicateForm(formId: string): Observable<IForm> {
+    return this.http.post<IForm>(`${environment.serviceUrl}/form/duplicate`, {_id: formId});
   }
 }

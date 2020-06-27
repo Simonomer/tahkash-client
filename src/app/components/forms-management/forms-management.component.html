@@ -3,4 +3,5 @@
   <span *ngFor="let tag of form.tags">
     <tag [tag]="tag" [formId]="form._id" [tagDeleted]="tagDeleted"></tag>
   </span>
+  <button (click)="onDuplicateForm(form._id)">Duplicate</button>
 </div>
