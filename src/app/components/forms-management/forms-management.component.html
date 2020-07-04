@@ -1,7 +1,4 @@
-<div *ngFor="let form of forms">
-  <span (click)="formClicked(form._id)">{{form.name}}</span>
-  <span *ngFor="let tag of form.tags">
-    <tag [tag]="tag" [formId]="form._id" [tagDeleted]="tagDeleted"></tag>
-  </span>
-  <button (click)="onDuplicateForm(form._id)">Duplicate</button>
-</div>
+<mat-card class="form-item" *ngFor="let form of forms">
+  <span>{{form.name}}</span>
+  <button mat-button color="primary" (click)="onDuplicateForm(form._id)" aria-label="duplicating a form">Duplicate</button>
+</mat-card>

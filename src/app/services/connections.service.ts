@@ -4,6 +4,7 @@ import {HttpClient} from "@angular/common/http";
 import {IQuestion} from "../models/question";
 import {Observable} from "rxjs";
 import {IForm} from "../models/form";
+import {ITag} from "../models/tag";
 
 @Injectable()
 export class ConnectionsService {
@@ -32,11 +33,15 @@ export class ConnectionsService {
   }
 
   getAllForms(): Observable<IForm[]> {
-    return this.http.get<IForm[]>(`${environment.serviceUrl}/form/true`);
+    return this.http.get<IForm[]>(`${environment.serviceUrl}/forms/true`);
   }
 
-  modifyForm(form: IForm) {
-    return this.http.put(`${environment.serviceUrl}/form`, form);
+  getForm(formId: string): Observable<IForm> {
+    return this.http.get<IForm>(`${environment.serviceUrl}/form/${formId}`);
+  }
+
+  modifyForm(form: IForm): Observable<IForm> {
+    return this.http.put<IForm>(`${environment.serviceUrl}/form`, {...form, tags: form.tags.map(tag => tag._id)});
   }
 
   removeTag(tagId: string): Observable<any> {
@@ -45,5 +50,9 @@ export class ConnectionsService {
 
   duplicateForm(formId: string): Observable<IForm> {
     return this.http.post<IForm>(`${environment.serviceUrl}/form/duplicate`, {_id: formId});
+  }
+
+  getTags(): Observable<ITag[]> {
+    return this.http.get<ITag[]>(`${environment.serviceUrl}/tags`);
   }
 }

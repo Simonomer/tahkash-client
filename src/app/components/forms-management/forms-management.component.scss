@@ -1,0 +1,10 @@
+.form-item {
+  border-bottom: solid 1px #ccc;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  box-sizing: border-box;
+  cursor: move;
+  background: white;
+}

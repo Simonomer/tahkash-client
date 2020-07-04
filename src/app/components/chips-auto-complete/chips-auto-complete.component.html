@@ -1,0 +1,24 @@
+<mat-form-field class="chip-list">
+  <mat-chip-list #dataList aria-label="Data selection">
+    <mat-chip
+      *ngFor="let tag of currentTags"
+      [removable]="removable"
+      (removed)="remove(tag._id)">
+      {{tag.text}}
+      <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+    </mat-chip>
+    <input
+      placeholder="New tag"
+      #chipsInput
+      [formControl]="chipsCtrl"
+      [matAutocomplete]="auto"
+      [matChipInputFor]="dataList"
+      [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+      (matChipInputTokenEnd)="add($event)">
+  </mat-chip-list>
+  <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
+    <mat-option *ngFor="let filteredTag of filteredTags | async" [value]="filteredTag">
+      {{filteredTag}}
+    </mat-option>
+  </mat-autocomplete>
+</mat-form-field>
