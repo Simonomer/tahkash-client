@@ -9,7 +9,6 @@ import {DragDropModule} from "@angular/cdk/drag-drop";
 import {ConnectionsService} from "./services/connections.service";
 import {FormsManagementService} from "./services/forms.management.service";
 import {FormEditorComponent} from './components/form-editor/form-editor.component';
-import {FormsManagementComponent} from './components/forms-management/forms-management.component';
 import {ChipsAutoCompleteComponent} from './components/chips-auto-complete/chips-auto-complete.component';
 import {MatAutocompleteModule} from "@angular/material/autocomplete";
 import {MatIconModule} from "@angular/material/icon";
@@ -19,13 +18,17 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {MatInputModule} from "@angular/material/input";
 import {MatButtonModule} from "@angular/material/button";
 import {MatCardModule} from "@angular/material/card";
+import {FormsManagementTableComponent} from './components/forms-table/forms-management-table.component';
+import {EditorPageComponent} from './components/editor-page/editor-page.component';
+import {MatToolbarModule} from '@angular/material/toolbar';
 
 @NgModule({
   declarations: [
     AppComponent,
     FormEditorComponent,
-    FormsManagementComponent,
-    ChipsAutoCompleteComponent
+    FormsManagementTableComponent,
+    ChipsAutoCompleteComponent,
+    EditorPageComponent
   ],
   imports: [
     BrowserModule,
@@ -41,7 +44,8 @@ import {MatCardModule} from "@angular/material/card";
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule,
-    MatCardModule
+    MatCardModule,
+    MatToolbarModule
   ],
   providers: [
     ConnectionsService,

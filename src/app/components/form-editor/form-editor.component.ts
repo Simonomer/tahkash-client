@@ -1,4 +1,3 @@
-import {FormControl} from '@angular/forms';
 import {orderBy as _orderBy} from 'lodash';
 import {ActivatedRoute} from "@angular/router";
 import {CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
@@ -12,7 +11,7 @@ import {Subject} from "rxjs";
 
 
 @Component({
-  selector: 'form-creator',
+  selector: 'form-editor',
   templateUrl: './form-editor.component.html',
   styleUrls: ['./form-editor.component.scss']
 })

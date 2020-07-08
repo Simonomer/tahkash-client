@@ -7,11 +7,11 @@ import {ConnectionsService} from "../../services/connections.service";
 import {FormsManagementService} from "../../services/forms.management.service";
 
 @Component({
-  selector: 'forms-management',
-  templateUrl: './forms-management.component.html',
-  styleUrls: ['./forms-management.component.scss']
+  selector: 'forms-management-table',
+  templateUrl: './forms-management-table.component.html',
+  styleUrls: ['./forms-management-table.component.scss']
 })
-export class FormsManagementComponent implements OnInit {
+export class FormsManagementTableComponent implements OnInit {
 
   forms: IForm[];
   tagDeleted: Subject<{ tagId: string, formId: string }>;

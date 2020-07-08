@@ -1,0 +1,6 @@
+<div class="form-list">
+  <mat-card (click)="formClicked(form._id)" class="form-item" *ngFor="let form of forms">
+    <span>{{form.name}}</span>
+    <button mat-button color="primary" (click)="onDuplicateForm(form._id)" aria-label="duplicating a form">Duplicate</button>
+  </mat-card>
+</div>
