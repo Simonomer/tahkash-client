@@ -5,6 +5,8 @@ import {IQuestion} from "../models/question";
 import {Observable} from "rxjs";
 import {IForm} from "../models/form";
 import {ITag} from "../models/tag";
+import {IAnswer} from '../models/answer';
+import {QuestionWithAnswers} from '../models/question-with-answers';
 
 @Injectable()
 export class ConnectionsService {
@@ -54,5 +56,13 @@ export class ConnectionsService {
 
   getTags(): Observable<ITag[]> {
     return this.http.get<ITag[]>(`${environment.serviceUrl}/tags`);
+  }
+
+  postAnswers(answers: IAnswer[]): Observable<IAnswer[]> {
+    return this.http.post<IAnswer[]>(`${environment.serviceUrl}/answers`, answers);
+  }
+
+  getAnswersForFormId(formId: string): Observable<QuestionWithAnswers[]> {
+    return this.http.get<QuestionWithAnswers[]>(`${environment.serviceUrl}/answers/${formId}`);
   }
 }

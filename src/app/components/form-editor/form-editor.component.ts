@@ -18,12 +18,7 @@ import {Subject} from "rxjs";
 export class FormEditorComponent implements OnInit {
 
   formId: string;
-  currentForm: IForm;
-  completeTags: ITag[];
   questions: IQuestion[];
-
-  tagRemoved: Subject<string>;
-  tagAdded: Subject<string>;
   @ViewChild("inputValue") inputElem: ElementRef;
 
   constructor(
@@ -31,27 +26,10 @@ export class FormEditorComponent implements OnInit {
     private route: ActivatedRoute) { }
 
   ngOnInit(): void {
-    this.tagAdded = new Subject<string>();
-    this.tagRemoved = new Subject<string>();
-
-    this.route.paramMap.subscribe(paramsMap => {
+    this.route.parent.paramMap.subscribe(paramsMap => {
       this.formId = paramsMap.get('formId');
-      this.connectionsService.getTags().subscribe(tags => this.completeTags = tags);
-      this.connectionsService.getForm(this.formId).subscribe(form => this.currentForm = form);
       this.updateQuestions();
     });
-
-    this.tagAdded.subscribe(tagId => {
-      if (!this.currentForm.tags.find(tag => tag._id === tagId)) {
-        this.currentForm.tags.push(this.completeTags.find(tag => tag._id === tagId));
-        this.connectionsService.modifyForm(this.currentForm).subscribe(form => this.currentForm = form);
-      }
-    })
-
-    this.tagRemoved.subscribe(tagId => {
-      this.currentForm.tags = this.currentForm.tags.filter(tag => tag._id !== tagId);
-      this.connectionsService.modifyForm(this.currentForm).subscribe(form => this.currentForm = form);
-    })
   }
 
   updateQuestions() {

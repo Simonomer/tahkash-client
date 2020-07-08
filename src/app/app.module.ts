@@ -21,6 +21,8 @@ import {MatCardModule} from "@angular/material/card";
 import {FormsManagementTableComponent} from './components/forms-table/forms-management-table.component';
 import {EditorPageComponent} from './components/editor-page/editor-page.component';
 import {MatToolbarModule} from '@angular/material/toolbar';
+import { FormAnswersComponent } from './components/form-answers/form-answers.component';
+import { FormOverviewComponent } from './components/form-overview/form-overview.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +30,9 @@ import {MatToolbarModule} from '@angular/material/toolbar';
     FormEditorComponent,
     FormsManagementTableComponent,
     ChipsAutoCompleteComponent,
-    EditorPageComponent
+    EditorPageComponent,
+    FormAnswersComponent,
+    FormOverviewComponent
   ],
   imports: [
     BrowserModule,
