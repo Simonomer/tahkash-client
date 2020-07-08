@@ -4,10 +4,7 @@ import {CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
 import {ConnectionsService} from "../../services/connections.service";
 import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 
-import {ITag} from "../../models/tag";
-import {IForm} from "../../models/form";
 import {IQuestion} from "../../models/question";
-import {Subject} from "rxjs";
 
 
 @Component({

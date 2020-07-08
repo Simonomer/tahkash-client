@@ -12,6 +12,7 @@ import {FormEditorComponent} from './components/form-editor/form-editor.componen
 import {ChipsAutoCompleteComponent} from './components/chips-auto-complete/chips-auto-complete.component';
 import {MatAutocompleteModule} from "@angular/material/autocomplete";
 import {MatIconModule} from "@angular/material/icon";
+import {MatTableModule} from '@angular/material/table';
 import {MatChipsModule} from "@angular/material/chips";
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
@@ -49,7 +50,8 @@ import { FormOverviewComponent } from './components/form-overview/form-overview.
     MatInputModule,
     MatButtonModule,
     MatCardModule,
-    MatToolbarModule
+    MatToolbarModule,
+    MatTableModule
   ],
   providers: [
     ConnectionsService,
