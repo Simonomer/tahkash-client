@@ -8,7 +8,6 @@ import {HttpClientModule} from "@angular/common/http";
 import {DragDropModule} from "@angular/cdk/drag-drop";
 import {ConnectionsService} from "./services/connections.service";
 import {FormsManagementService} from "./services/forms.management.service";
-import {FormEditorComponent} from './components/form-editor/form-editor.component';
 import {ChipsAutoCompleteComponent} from './components/chips-auto-complete/chips-auto-complete.component';
 import {MatAutocompleteModule} from "@angular/material/autocomplete";
 import {MatIconModule} from "@angular/material/icon";
@@ -19,11 +18,13 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {MatInputModule} from "@angular/material/input";
 import {MatButtonModule} from "@angular/material/button";
 import {MatCardModule} from "@angular/material/card";
-import {FormsManagementTableComponent} from './components/forms-table/forms-management-table.component';
 import {EditorPageComponent} from './components/editor-page/editor-page.component';
 import {MatToolbarModule} from '@angular/material/toolbar';
-import { FormAnswersComponent } from './components/form-answers/form-answers.component';
 import { FormOverviewComponent } from './components/form-overview/form-overview.component';
+import { SidebarComponent } from './components/sidebar/sidebar.component';
+import {FormEditorComponent} from './components/form-overview/form-editor/form-editor.component';
+import {FormsManagementTableComponent} from './components/sidebar/forms-table/forms-management-table.component';
+import {FormAnswersComponent} from './components/form-overview/form-answers/form-answers.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { FormOverviewComponent } from './components/form-overview/form-overview.
     ChipsAutoCompleteComponent,
     EditorPageComponent,
     FormAnswersComponent,
-    FormOverviewComponent
+    FormOverviewComponent,
+    SidebarComponent
   ],
   imports: [
     BrowserModule,

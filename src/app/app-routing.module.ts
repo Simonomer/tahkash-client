@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import {FormEditorComponent} from "./components/form-editor/form-editor.component";
 import {EditorPageComponent} from './components/editor-page/editor-page.component';
 import {FormOverviewComponent} from './components/form-overview/form-overview.component';
-import {FormAnswersComponent} from './components/form-answers/form-answers.component';
+import {FormEditorComponent} from './components/form-overview/form-editor/form-editor.component';
+import {FormAnswersComponent} from './components/form-overview/form-answers/form-answers.component';
 
 
 const routes: Routes = [

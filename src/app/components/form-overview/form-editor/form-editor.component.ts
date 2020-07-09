@@ -1,10 +1,10 @@
 import {orderBy as _orderBy} from 'lodash';
 import {ActivatedRoute} from "@angular/router";
 import {CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
-import {ConnectionsService} from "../../services/connections.service";
 import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {ConnectionsService} from '../../../services/connections.service';
+import {IQuestion} from '../../../models/question';
 
-import {IQuestion} from "../../models/question";
 
 
 @Component({

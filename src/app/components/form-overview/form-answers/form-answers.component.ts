@@ -1,9 +1,9 @@
 import {orderBy as _orderBy, meanBy as _meanBy} from 'lodash';
 import {ActivatedRoute} from '@angular/router';
 import {Component, OnInit} from '@angular/core';
-import {QuestionWithAnswers} from '../../models/question-with-answers';
-import {ConnectionsService} from '../../services/connections.service';
-import {IAnswer} from '../../models/answer';
+import {IAnswer} from '../../../models/answer';
+import {ConnectionsService} from '../../../services/connections.service';
+import {QuestionWithAnswers} from '../../../models/question-with-answers';
 
 @Component({
   selector: 'form-answers',

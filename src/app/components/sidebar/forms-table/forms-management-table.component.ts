@@ -2,9 +2,9 @@ import {Router, ActivatedRoute} from "@angular/router";
 import { Component, OnInit } from '@angular/core';
 
 import {Subject} from "rxjs";
-import {IForm} from "../../models/form";
-import {ConnectionsService} from "../../services/connections.service";
-import {FormsManagementService} from "../../services/forms.management.service";
+import {ConnectionsService} from '../../../services/connections.service';
+import {FormsManagementService} from '../../../services/forms.management.service';
+import {IForm} from '../../../models/form';
 
 @Component({
   selector: 'forms-management-table',
