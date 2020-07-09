@@ -2,5 +2,6 @@
   <mat-card (click)="formClicked(form._id)" class="form-item" *ngFor="let form of forms">
     <span>{{form.name}}</span>
     <button mat-button color="primary" (click)="onDuplicateForm(form._id)" aria-label="duplicating a form">Duplicate</button>
+    <button mat-button color="primary" (click)="onDeleteFormClick(form._id)" aria-label="deleting a form">Delete</button>
   </mat-card>
 </div>

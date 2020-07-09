@@ -44,4 +44,8 @@ export class FormsManagementTableComponent implements OnInit {
     this.connectionsService.duplicateForm(formId).subscribe(() => this.updateForms());
   }
 
+  onDeleteFormClick(formId: string) {
+    this.connectionsService.deleteForm(formId).subscribe(() => this.updateForms());
+  }
+
 }

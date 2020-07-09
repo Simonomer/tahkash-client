@@ -65,4 +65,8 @@ export class ConnectionsService {
   getAnswersForFormId(formId: string): Observable<QuestionWithAnswers[]> {
     return this.http.get<QuestionWithAnswers[]>(`${environment.serviceUrl}/answers/${formId}`);
   }
+
+  deleteForm(formId: string): Observable<IForm> {
+    return this.http.delete<IForm>(`${environment.serviceUrl}/form/${formId}`);
+  }
 }
