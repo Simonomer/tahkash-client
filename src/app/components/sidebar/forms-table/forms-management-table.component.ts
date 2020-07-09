@@ -5,6 +5,7 @@ import {Subject} from "rxjs";
 import {ConnectionsService} from '../../../services/connections.service';
 import {FormsManagementService} from '../../../services/forms.management.service';
 import {IForm} from '../../../models/form';
+import {Clipboard} from '@angular/cdk/clipboard';
 
 @Component({
   selector: 'forms-management-table',
@@ -20,7 +21,8 @@ export class FormsManagementTableComponent implements OnInit {
   constructor(private connectionsService: ConnectionsService,
               private formsManagementService: FormsManagementService,
               private router: Router,
-              private activatedRoute: ActivatedRoute) { }
+              private activatedRoute: ActivatedRoute,
+              private clipboard: Clipboard) { }
 
   ngOnInit(): void {
     this.tagDeleted = new Subject<{ tagId: string, formId: string }>();
@@ -45,4 +47,10 @@ export class FormsManagementTableComponent implements OnInit {
     this.connectionsService.deleteForm(formId).subscribe(() => this.updateForms.next());
   }
 
+  copyToClipboardAnswerUrl(formId: string) {
+    const angularRoute = this.router.url;
+    const fullUrl = window.location.href;
+    const domainUrl = fullUrl.replace(angularRoute, '');
+    this.clipboard.copy(`${domainUrl}/answer/${formId}`)
+  }
 }

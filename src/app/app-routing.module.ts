@@ -4,6 +4,7 @@ import {EditorPageComponent} from './components/editor-page/editor-page.componen
 import {FormOverviewComponent} from './components/form-overview/form-overview.component';
 import {FormEditorComponent} from './components/form-overview/form-editor/form-editor.component';
 import {FormAnswersComponent} from './components/form-overview/form-answers/form-answers.component';
+import {AnswerPageComponent} from './components/answer-page/answer-page.component';
 
 
 const routes: Routes = [
@@ -13,6 +14,7 @@ const routes: Routes = [
         { path: 'answers', component: FormAnswersComponent },
         { path: '', redirectTo: 'edit', pathMatch: 'prefix' }
       ] }] },
+  { path: 'answer/:formId', component: AnswerPageComponent },
   { path: '**', redirectTo: '/forms' }
 ];
 

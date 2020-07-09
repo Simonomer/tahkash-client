@@ -1,5 +1,5 @@
 import {orderBy as _orderBy} from 'lodash';
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from '@angular/router';
 import {CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
 import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {ConnectionsService} from '../../../services/connections.service';
@@ -20,7 +20,8 @@ export class FormEditorComponent implements OnInit {
 
   constructor(
     private connectionsService: ConnectionsService,
-    private route: ActivatedRoute) { }
+    private route: ActivatedRoute,
+    private router: Router) { }
 
   ngOnInit(): void {
     this.route.parent.paramMap.subscribe(paramsMap => {
@@ -47,6 +48,10 @@ export class FormEditorComponent implements OnInit {
   drop(event: CdkDragDrop<string[]>) {
     moveItemInArray(this.questions, event.previousIndex, event.currentIndex);
     this.connectionsService.modifyQuestions(this.questions).subscribe(() => this.updateQuestions());
+  }
+
+  goToPreview() {
+    this.router.navigate(['answer', this.formId])
   }
 
 }

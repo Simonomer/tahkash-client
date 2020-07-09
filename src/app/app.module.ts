@@ -27,6 +27,9 @@ import {FormsManagementTableComponent} from './components/sidebar/forms-table/fo
 import {FormAnswersComponent} from './components/form-overview/form-answers/form-answers.component';
 import {NewFormDialog} from './components/sidebar/new-form-dialog/new-form-dialog.component';
 import {ChipsAutoCompleteComponent} from './components/form-overview/chips-auto-complete/chips-auto-complete.component';
+import { AnswerPageComponent } from './components/answer-page/answer-page.component';
+import {ClipboardModule} from '@angular/cdk/clipboard';
+import {MatRadioModule} from '@angular/material/radio';
 
 @NgModule({
   declarations: [
@@ -38,7 +41,8 @@ import {ChipsAutoCompleteComponent} from './components/form-overview/chips-auto-
     FormAnswersComponent,
     FormOverviewComponent,
     SidebarComponent,
-    NewFormDialog
+    NewFormDialog,
+    AnswerPageComponent
   ],
   imports: [
     BrowserModule,
@@ -58,7 +62,9 @@ import {ChipsAutoCompleteComponent} from './components/form-overview/chips-auto-
     MatToolbarModule,
     MatTableModule,
     MatDialogModule,
-    FormsModule
+    FormsModule,
+    ClipboardModule,
+    MatRadioModule
   ],
   providers: [
     ConnectionsService,

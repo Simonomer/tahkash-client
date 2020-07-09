@@ -1,0 +1,19 @@
+<div *ngFor="let questionAndAnswer of questionsAndAnswers; let i=index;">
+  <div>
+    <mat-form-field>
+      <mat-label>{{questionAndAnswer.question.text}}</mat-label>
+      <textarea matInput [(ngModel)]="questionAndAnswer.answer.text"></textarea>
+    </mat-form-field>
+  </div>
+
+  <div>
+    <mat-radio-group [(ngModel)]="questionAndAnswer.answer.rating" aria-label="pick rating">
+      <span class="radio-button" *ngFor="let i of [1, 2, 3, 4, 5, 6, 7]">
+        <mat-radio-button [value]=i>{{i}}</mat-radio-button>
+      </span>
+    </mat-radio-group>
+  </div>
+</div>
+
+<button mat-button color="primary" (click)="submitForm()" aria-label="submitting the form">Submit</button>
+
