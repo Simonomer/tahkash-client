@@ -1,3 +1,4 @@
 <div class="sidebar">
-  <forms-management-table></forms-management-table>
+  <button mat-raised-button (click)="openDialog()">NewForm</button>
+  <forms-management-table [forms]="forms" [updateForms]="formsUpdated"></forms-management-table>
 </div>

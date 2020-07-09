@@ -5,7 +5,7 @@ import {MatAutocompleteSelectedEvent, MatAutocomplete} from '@angular/material/a
 import {MatChipInputEvent} from '@angular/material/chips';
 import {Observable, Subject} from 'rxjs';
 import {map, startWith} from 'rxjs/operators';
-import {ITag} from "../../models/tag";
+import {ITag} from '../../../models/tag';
 
 @Component({
   selector: 'chips-auto-complete',

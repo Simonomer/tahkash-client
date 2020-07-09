@@ -1,5 +1,5 @@
 import {Router, ActivatedRoute} from "@angular/router";
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 
 import {Subject} from "rxjs";
 import {ConnectionsService} from '../../../services/connections.service';
@@ -13,8 +13,9 @@ import {IForm} from '../../../models/form';
 })
 export class FormsManagementTableComponent implements OnInit {
 
-  forms: IForm[];
   tagDeleted: Subject<{ tagId: string, formId: string }>;
+  @Input() forms: IForm[];
+  @Input() updateForms: Subject<any>;
 
   constructor(private connectionsService: ConnectionsService,
               private formsManagementService: FormsManagementService,
@@ -24,11 +25,7 @@ export class FormsManagementTableComponent implements OnInit {
   ngOnInit(): void {
     this.tagDeleted = new Subject<{ tagId: string, formId: string }>();
     this.tagDeleted.subscribe(obj => this.onTagDeleted(obj.tagId, obj.formId));
-    this.updateForms();
-  }
-
-  updateForms() {
-    this.connectionsService.getAllForms().subscribe((forms: IForm[]) => this.forms = forms);
+    this.updateForms.next();
   }
 
   formClicked(formId: string) {
@@ -37,15 +34,15 @@ export class FormsManagementTableComponent implements OnInit {
 
   onTagDeleted(tagId: string, formId: string) {
     this.formsManagementService.removeTagFromForm(tagId, this.forms.find(form => form._id === formId))
-      .subscribe(() => this.updateForms());
+      .subscribe(() => this.updateForms.next());
   }
 
   onDuplicateForm(formId: string) {
-    this.connectionsService.duplicateForm(formId).subscribe(() => this.updateForms());
+    this.connectionsService.duplicateForm(formId).subscribe(() => this.updateForms.next());
   }
 
   onDeleteFormClick(formId: string) {
-    this.connectionsService.deleteForm(formId).subscribe(() => this.updateForms());
+    this.connectionsService.deleteForm(formId).subscribe(() => this.updateForms.next());
   }
 
 }

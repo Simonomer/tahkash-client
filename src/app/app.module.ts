@@ -2,13 +2,12 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
 import {AppComponent} from './app.component';
-import {ReactiveFormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {AppRoutingModule} from './app-routing.module';
 import {HttpClientModule} from "@angular/common/http";
 import {DragDropModule} from "@angular/cdk/drag-drop";
 import {ConnectionsService} from "./services/connections.service";
 import {FormsManagementService} from "./services/forms.management.service";
-import {ChipsAutoCompleteComponent} from './components/chips-auto-complete/chips-auto-complete.component';
 import {MatAutocompleteModule} from "@angular/material/autocomplete";
 import {MatIconModule} from "@angular/material/icon";
 import {MatTableModule} from '@angular/material/table';
@@ -20,11 +19,14 @@ import {MatButtonModule} from "@angular/material/button";
 import {MatCardModule} from "@angular/material/card";
 import {EditorPageComponent} from './components/editor-page/editor-page.component';
 import {MatToolbarModule} from '@angular/material/toolbar';
-import { FormOverviewComponent } from './components/form-overview/form-overview.component';
-import { SidebarComponent } from './components/sidebar/sidebar.component';
+import {MatDialogModule} from '@angular/material/dialog';
+import {FormOverviewComponent} from './components/form-overview/form-overview.component';
+import {SidebarComponent} from './components/sidebar/sidebar.component';
 import {FormEditorComponent} from './components/form-overview/form-editor/form-editor.component';
 import {FormsManagementTableComponent} from './components/sidebar/forms-table/forms-management-table.component';
 import {FormAnswersComponent} from './components/form-overview/form-answers/form-answers.component';
+import {NewFormDialog} from './components/sidebar/new-form-dialog/new-form-dialog.component';
+import {ChipsAutoCompleteComponent} from './components/form-overview/chips-auto-complete/chips-auto-complete.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +37,8 @@ import {FormAnswersComponent} from './components/form-overview/form-answers/form
     EditorPageComponent,
     FormAnswersComponent,
     FormOverviewComponent,
-    SidebarComponent
+    SidebarComponent,
+    NewFormDialog
   ],
   imports: [
     BrowserModule,
@@ -53,7 +56,9 @@ import {FormAnswersComponent} from './components/form-overview/form-answers/form
     MatButtonModule,
     MatCardModule,
     MatToolbarModule,
-    MatTableModule
+    MatTableModule,
+    MatDialogModule,
+    FormsModule
   ],
   providers: [
     ConnectionsService,

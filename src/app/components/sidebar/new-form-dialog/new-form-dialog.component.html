@@ -1,0 +1,11 @@
+<div mat-dialog-content>
+  <p>Form name?</p>
+  <mat-form-field>
+    <mat-label>Form name:</mat-label>
+    <input matInput [(ngModel)]="formName">
+  </mat-form-field>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onCloseClick()">Close</button>
+  <button mat-button [mat-dialog-close]="formName" cdkFocusInitial>Ok</button>
+</div>
