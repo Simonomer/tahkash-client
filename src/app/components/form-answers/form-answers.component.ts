@@ -1,8 +1,9 @@
-import {orderBy as _orderBy} from 'lodash';
+import {orderBy as _orderBy, meanBy as _meanBy} from 'lodash';
 import {ActivatedRoute} from '@angular/router';
 import {Component, OnInit} from '@angular/core';
 import {QuestionWithAnswers} from '../../models/question-with-answers';
 import {ConnectionsService} from '../../services/connections.service';
+import {IAnswer} from '../../models/answer';
 
 @Component({
   selector: 'form-answers',
@@ -27,8 +28,13 @@ export class FormAnswersComponent implements OnInit {
 
   updateQuestionsWithAnswers() {
     this.connectionsService.getAnswersForFormId(this.formId).subscribe(questionsWithAnswers => {
+      console.log(questionsWithAnswers)
       this.questionsWithAnswers = _orderBy(questionsWithAnswers, item => item.priority);
     });
+  }
+
+  averageRating(answers: IAnswer[]) {
+    return _meanBy(answers, answer => answer.rating);
   }
 
 }

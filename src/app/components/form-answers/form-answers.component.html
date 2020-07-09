@@ -1,22 +1,25 @@
 <div class="form-answers">
   <div *ngFor="let questionWithAnswers of questionsWithAnswers">
-    <table mat-table [dataSource]="questionWithAnswers.answers">
-      <ng-container matColumnDef="text">
-        <th mat-header-cell *matHeaderCellDef> Answer </th>
-        <td mat-cell *matCellDef="let answer"> {{answer.text}} </td>
-        <td mat-footer-cell *matFooterCellDef> Average rating </td>
-      </ng-container>
+    <div class="answer-block" *ngIf="questionWithAnswers.answers.length">
+      {{questionWithAnswers.text}}
+      <table mat-table [dataSource]="questionWithAnswers.answers">
+        <ng-container matColumnDef="text">
+          <th mat-header-cell *matHeaderCellDef> Answer </th>
+          <td mat-cell *matCellDef="let answer"> {{answer.text}} </td>
+          <td mat-footer-cell *matFooterCellDef> Average rating </td>
+        </ng-container>
 
-      <ng-container matColumnDef="rating">
-        <th mat-header-cell *matHeaderCellDef> Rating </th>
-        <td mat-cell *matCellDef="let answer"> {{answer.rating}} </td>
-        <td mat-footer-cell *matFooterCellDef> {{5}} </td>
-      </ng-container>
+        <ng-container matColumnDef="rating">
+          <th mat-header-cell *matHeaderCellDef> Rating </th>
+          <td mat-cell *matCellDef="let answer"> {{answer.rating}} </td>
+          <td mat-footer-cell *matFooterCellDef> {{averageRating(questionWithAnswers.answers)}} </td>
+        </ng-container>
 
-      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-      <tr mat-footer-row *matFooterRowDef="displayedColumns"></tr>
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        <tr mat-footer-row *matFooterRowDef="displayedColumns"></tr>
 
-    </table>
+      </table>
+    </div>
   </div>
 </div>
