@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import {NewFormDialog} from './new-form-dialog/new-form-dialog.component';
+import {NewFormDialogComponent} from './new-form-dialog/new-form-dialog.component';
 import {MatDialog} from '@angular/material/dialog';
 import {ConnectionsService} from '../../services/connections.service';
 import {IForm} from '../../models/form';
 import {Subject} from 'rxjs';
+import {SettingsDialogComponent} from '../settings-dialog/settings-dialog.component';
 
 @Component({
   selector: 'sidebar',
@@ -27,8 +28,8 @@ export class SidebarComponent implements OnInit {
     this.connectionsService.getAllForms().subscribe((forms: IForm[]) => this.forms = forms);
   }
 
-  openDialog(): void {
-    const dialogRef = this.dialog.open(NewFormDialog, {
+  openNewFormDialog(): void {
+    const dialogRef = this.dialog.open(NewFormDialogComponent, {
       width: '250px'
     });
 
@@ -36,6 +37,13 @@ export class SidebarComponent implements OnInit {
       if (formName) {
         this.connectionsService.createForm(formName).subscribe(() => this.updateForms());
       }
+    });
+  }
+
+  openSettingsDialog(): void {
+    const dialogRef = this.dialog.open(SettingsDialogComponent, {
+      width: '500px',
+      height: '500px'
     });
   }
 

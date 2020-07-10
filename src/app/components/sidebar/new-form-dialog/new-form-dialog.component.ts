@@ -5,12 +5,11 @@ import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
   selector: 'new-form-dialog',
   templateUrl: 'new-form-dialog.component.html',
 })
-export class NewFormDialog {
+export class NewFormDialogComponent {
 
   formName: string;
 
-  constructor(
-    public dialogRef: MatDialogRef<NewFormDialog>) {}
+  constructor(public dialogRef: MatDialogRef<NewFormDialogComponent>) {}
 
   onCloseClick(): void {
     this.dialogRef.close();

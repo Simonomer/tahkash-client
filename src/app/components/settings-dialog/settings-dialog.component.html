@@ -1,0 +1,27 @@
+<div *ngFor="let group of GROUP_BY">
+  <div>Group: {{group}}</div>
+  <div>
+    <mat-chip
+      *ngFor="let tag of groupedByTags[group]"
+      [removable]="removable"
+      (removed)="tagRemoved.next(tag._id)">
+      {{tag.text}}
+      <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+    </mat-chip>
+  </div>
+
+  <div>
+    <mat-form-field>
+      <mat-label>New tag:</mat-label>
+      <input matInput type="text" #inputValue (keydown.enter)="addTag(inputValue.value, group); inputValue.value=''">
+      <button mat-button *ngIf="inputValue.value" matSuffix mat-icon-button aria-label="Clear" (click)="inputValue.value=''">
+        <mat-icon>cancel</mat-icon>
+      </button>
+    </mat-form-field>
+  </div>
+
+</div>
+
+<div mat-dialog-actions>
+  <button mat-button (click)="onCloseClick()">Close</button>
+</div>

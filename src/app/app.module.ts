@@ -25,11 +25,12 @@ import {SidebarComponent} from './components/sidebar/sidebar.component';
 import {FormEditorComponent} from './components/form-overview/form-editor/form-editor.component';
 import {FormsManagementTableComponent} from './components/sidebar/forms-table/forms-management-table.component';
 import {FormAnswersComponent} from './components/form-overview/form-answers/form-answers.component';
-import {NewFormDialog} from './components/sidebar/new-form-dialog/new-form-dialog.component';
+import {NewFormDialogComponent} from './components/sidebar/new-form-dialog/new-form-dialog.component';
 import {ChipsAutoCompleteComponent} from './components/form-overview/chips-auto-complete/chips-auto-complete.component';
 import { AnswerPageComponent } from './components/answer-page/answer-page.component';
 import {ClipboardModule} from '@angular/cdk/clipboard';
 import {MatRadioModule} from '@angular/material/radio';
+import { SettingsDialogComponent } from './components/settings-dialog/settings-dialog.component';
 
 @NgModule({
   declarations: [
@@ -41,8 +42,9 @@ import {MatRadioModule} from '@angular/material/radio';
     FormAnswersComponent,
     FormOverviewComponent,
     SidebarComponent,
-    NewFormDialog,
-    AnswerPageComponent
+    NewFormDialogComponent,
+    AnswerPageComponent,
+    SettingsDialogComponent
   ],
   imports: [
     BrowserModule,
