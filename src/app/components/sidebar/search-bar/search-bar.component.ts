@@ -6,6 +6,7 @@ import {ConnectionsService} from '../../../services/connections.service';
 import {Subject} from 'rxjs';
 import {IForm} from '../../../models/form';
 import {LocalstorageService} from '../../../services/localstorage.service';
+import {Timestamps} from '../../../models/timestamp.enum';
 
 @Component({
   selector: 'search-bar',
@@ -27,11 +28,19 @@ export class SearchBarComponent implements OnInit {
   allTags: ITag[];
   currentTags: ITag[];
   filterString: string;
+  currentTimeBackFilter: Timestamps;
 
   tagAdded: Subject<string>;
   tagRemoved: Subject<string>;
   inputUpdated: Subject<string>;
   @Input() formsFiltered: Subject<IForm[]>;
+
+  timeStampsToData = {
+    [Timestamps.Week]: { value: 7, description: 'השבוע האחרון'},
+    [Timestamps.Month]: { value: 30, description: 'החודש האחרון'},
+    [Timestamps.Year]: { value: 365, description: 'מהשנה האחרונה'},
+    [Timestamps.Forever]: { value: 10000, description: 'קום המערכת'}
+  }
 
   constructor(private connectionsService: ConnectionsService,
               private localstorageService: LocalstorageService) { }
@@ -43,7 +52,7 @@ export class SearchBarComponent implements OnInit {
 
     this.connectionsService.getTags().subscribe(tags => {
       this.allTags = tags;
-      const localhostTagNames = this.getTagNamesFromLocalstorage();
+      const localhostTagNames = this.localstorageService.getByKey(this.localstorageService.TAG_NAMES);
       this.currentTags = this.allTags.filter(tag => localhostTagNames?.includes(tag.text));
     });
 
@@ -54,15 +63,23 @@ export class SearchBarComponent implements OnInit {
 
     this.tagAdded.subscribe(tagId => {
       this.currentTags.push(this.allTags.find(tag => tag._id === tagId));
-      this.postTagsToLocalstorage(this.currentTags.map(tag => tag.text));
+      this.localstorageService.setItem(this.localstorageService.TAG_NAMES,this.currentTags.map(tag => tag.text));
       this.filterForms();
     });
 
     this.tagRemoved.subscribe(tagId => {
       this.currentTags = this.currentTags.filter(tag => tag._id !== tagId);
-      this.postTagsToLocalstorage(this.currentTags.map(tag => tag.text));
+      this.localstorageService.setItem(this.localstorageService.TAG_NAMES,this.currentTags.map(tag => tag.text));
       this.filterForms();
     });
+
+    if (Timestamps[this.localstorageService.getByKey(this.localstorageService.TIME_BACK_FORMS)]) {
+      const currentDatetimeFilter: string = this.localstorageService.getByKey(this.localstorageService.TIME_BACK_FORMS);
+      const currentTimebackString: string = Timestamps[currentDatetimeFilter];
+      this.currentTimeBackFilter = Timestamps[currentTimebackString];
+    } else {
+      this.currentTimeBackFilter = Timestamps[Timestamps[Timestamps.Week]];
+    }
   }
 
   filterForms() {
@@ -80,14 +97,22 @@ export class SearchBarComponent implements OnInit {
       })
     }
 
+    if (this.currentTimeBackFilter !== Timestamps.Forever) {
+      filterForms = filterForms.filter(form => {
+        const currentDatePlusDaysBack = new Date(form.creationTime)
+        const wantedBackTimeFilter: number = this.currentTimeBackFilter;
+        currentDatePlusDaysBack.setDate(currentDatePlusDaysBack.getDate() + this.timeStampsToData[wantedBackTimeFilter].value)
+        return Number(currentDatePlusDaysBack) > Number(Date.now())
+      } )
+    }
+
     this.formsFiltered.next(filterForms);
   }
 
-  getTagNamesFromLocalstorage(): string[] {
-    return this.localstorageService.getByKey(this.localstorageService.TAG_NAMES);
-  }
-
-  postTagsToLocalstorage(tagNames: string[]): void{
-    this.localstorageService.setItem(this.localstorageService.TAG_NAMES, tagNames);
+  onTimestampChange(timestamp: string) {
+    const currentTimestamp: string = Timestamps[timestamp];
+    this.currentTimeBackFilter = Timestamps[currentTimestamp];
+    this.localstorageService.setItem(this.localstorageService.TIME_BACK_FORMS, this.currentTimeBackFilter)
+    this.filterForms();
   }
 }

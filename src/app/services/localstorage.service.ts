@@ -4,6 +4,7 @@ import {Injectable} from '@angular/core';
 export class LocalstorageService {
 
   public TAG_NAMES = 'tagNames';
+  public TIME_BACK_FORMS = 'timeBackForms';
 
   getByKey(key: string) {
     return JSON.parse(localStorage.getItem(key));

@@ -1,5 +1,22 @@
 <div>
-  <chips-auto-complete [allTags]="allTags" [currentTags]="currentTags"
-                       [tagAdded]="tagAdded" [tagRemoved]="tagRemoved"
-                       [inputUpdating]="inputUpdated"></chips-auto-complete>
+  <div>
+    <span>
+      מציג תחק"שים מ{{timeStampsToData[currentTimeBackFilter].description}}:
+    </span>
+    <span>
+      <button mat-icon-button [matMenuTriggerFor]="menu"><mat-icon>access_time</mat-icon></button>
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item *ngFor="let timestamp of timeStampsToData | keyvalue"
+                (click)="onTimestampChange(timestamp.key)">
+          {{timestamp.value.description}}
+        </button>
+      </mat-menu>
+    </span>
+  </div>
+
+  <div class="chips-search">
+    <chips-auto-complete [allTags]="allTags" [currentTags]="currentTags"
+                         [tagAdded]="tagAdded" [tagRemoved]="tagRemoved"
+                         [inputUpdating]="inputUpdated"></chips-auto-complete>
+  </div>
 </div>

@@ -1,3 +1,10 @@
-.chip-list {
+.chips-input {
   width: 100%;
+  direction: rtl;
+  text-align: right;
+}
+
+.mat-standard-chip .mat-chip-remove, .mat-standard-chip .mat-chip-trailing-icon {
+  margin-left: -5px;
+  margin-right: 8px;
 }
