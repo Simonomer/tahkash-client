@@ -33,6 +33,7 @@ import {MatRadioModule} from '@angular/material/radio';
 import { SettingsDialogComponent } from './components/settings-dialog/settings-dialog.component';
 import { SearchBarComponent } from './components/sidebar/search-bar/search-bar.component';
 import {LocalstorageService} from './services/localstorage.service';
+import {MatMenuModule} from '@angular/material/menu';
 
 @NgModule({
   declarations: [
@@ -69,7 +70,8 @@ import {LocalstorageService} from './services/localstorage.service';
     MatDialogModule,
     FormsModule,
     ClipboardModule,
-    MatRadioModule
+    MatRadioModule,
+    MatMenuModule
   ],
   providers: [
     ConnectionsService,
