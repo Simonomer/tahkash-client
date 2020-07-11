@@ -6,6 +6,7 @@ import {MatChipInputEvent} from '@angular/material/chips';
 import {Observable, Subject} from 'rxjs';
 import {map, startWith} from 'rxjs/operators';
 import {ITag} from '../../../models/tag';
+import {difference as _difference} from 'lodash';
 
 @Component({
   selector: 'chips-auto-complete',
@@ -23,6 +24,7 @@ export class ChipsAutoCompleteComponent implements OnInit {
   @Input() allTags: ITag[];
   @Input() tagAdded: Subject<string>;
   @Input() tagRemoved: Subject<string>;
+  @Input() inputUpdating: Subject<string>;
   @ViewChild('chipsInput') chipsInput: ElementRef<HTMLInputElement>;
   @ViewChild('auto') matAutocomplete: MatAutocomplete;
 
@@ -32,7 +34,12 @@ export class ChipsAutoCompleteComponent implements OnInit {
   ngOnInit(): void {
     this.filteredTags = this.chipsCtrl.valueChanges.pipe(
       startWith(null),
-      map((tag: string | null) => tag ? this._filter(tag) : this.allTags?.slice().map(tag => tag.text)));
+      map((tag: string | null) => tag ? this._filter(tag) :
+        _difference(this.allTags?.slice().map(tag => tag.text), this.currentTags?.slice().map(tag => tag.text))));
+
+    if (this.inputUpdating) {
+      this.chipsCtrl.valueChanges.subscribe(value => this.inputUpdating.next(value))
+    }
   }
 
   add(event: MatChipInputEvent): void {
@@ -40,7 +47,7 @@ export class ChipsAutoCompleteComponent implements OnInit {
     const value = event.value;
 
     if ((value || '').trim()) {
-      const foundTag = this.currentTags.find(tag => tag.text === value.trim());
+      const foundTag = this.allTags.find(tag => tag.text === value.trim());
       if (foundTag) {
         this.tagAdded.next(foundTag._id);
       }

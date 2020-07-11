@@ -5,6 +5,7 @@ import {ConnectionsService} from '../../services/connections.service';
 import {IForm} from '../../models/form';
 import {Subject} from 'rxjs';
 import {SettingsDialogComponent} from '../settings-dialog/settings-dialog.component';
+import {ITag} from '../../models/tag';
 
 @Component({
   selector: 'sidebar',
@@ -13,19 +14,26 @@ import {SettingsDialogComponent} from '../settings-dialog/settings-dialog.compon
 })
 export class SidebarComponent implements OnInit {
 
-  forms: IForm[];
+  allForms: IForm[];
+  filteredForms: IForm[];
   formsUpdated: Subject<any>;
+  formsFiltered: Subject<IForm[]>;
 
   constructor(public dialog: MatDialog,
               private connectionsService: ConnectionsService) { }
 
   ngOnInit(): void {
     this.formsUpdated = new Subject<any>();
-    this.formsUpdated.subscribe(() => this.updateForms())
+    this.formsFiltered = new Subject<any>();
+    this.formsUpdated.subscribe(() => this.updateForms());
+    this.formsFiltered.subscribe(forms => this.filteredForms = forms);
   }
 
   updateForms() {
-    this.connectionsService.getAllForms().subscribe((forms: IForm[]) => this.forms = forms);
+    this.connectionsService.getAllForms().subscribe((forms: IForm[]) => {
+      this.allForms = forms;
+      this.filteredForms = forms;
+    });
   }
 
   openNewFormDialog(): void {

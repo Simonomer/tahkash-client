@@ -31,6 +31,7 @@ import { AnswerPageComponent } from './components/answer-page/answer-page.compon
 import {ClipboardModule} from '@angular/cdk/clipboard';
 import {MatRadioModule} from '@angular/material/radio';
 import { SettingsDialogComponent } from './components/settings-dialog/settings-dialog.component';
+import { SearchBarComponent } from './components/sidebar/search-bar/search-bar.component';
 
 @NgModule({
   declarations: [
@@ -44,7 +45,8 @@ import { SettingsDialogComponent } from './components/settings-dialog/settings-d
     SidebarComponent,
     NewFormDialogComponent,
     AnswerPageComponent,
-    SettingsDialogComponent
+    SettingsDialogComponent,
+    SearchBarComponent
   ],
   imports: [
     BrowserModule,
