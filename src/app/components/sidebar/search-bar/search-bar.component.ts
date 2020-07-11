@@ -5,6 +5,7 @@ import {ITag} from '../../../models/tag';
 import {ConnectionsService} from '../../../services/connections.service';
 import {Subject} from 'rxjs';
 import {IForm} from '../../../models/form';
+import {LocalstorageService} from '../../../services/localstorage.service';
 
 @Component({
   selector: 'search-bar',
@@ -13,17 +14,27 @@ import {IForm} from '../../../models/form';
 })
 export class SearchBarComponent implements OnInit {
 
+  _allForms: IForm[];
+  @Input()
+  set allForms(allForms: IForm[]) {
+    this._allForms = allForms;
+    if (allForms) {
+      this.filterForms();
+    }
+  }
+  get allForms() { return this._allForms; }
+
   allTags: ITag[];
   currentTags: ITag[];
   filterString: string;
-  @Input() allForms: IForm[];
 
   tagAdded: Subject<string>;
   tagRemoved: Subject<string>;
   inputUpdated: Subject<string>;
   @Input() formsFiltered: Subject<IForm[]>;
 
-  constructor(private connectionsService: ConnectionsService) { }
+  constructor(private connectionsService: ConnectionsService,
+              private localstorageService: LocalstorageService) { }
 
   ngOnInit(): void {
     this.tagAdded = new Subject<string>();
@@ -32,8 +43,8 @@ export class SearchBarComponent implements OnInit {
 
     this.connectionsService.getTags().subscribe(tags => {
       this.allTags = tags;
-      const localhostTagNames = this.getTagNamesFromLocalhost();
-      this.currentTags = this.allTags.filter(tag => localhostTagNames.includes(tag.text));
+      const localhostTagNames = this.getTagNamesFromLocalstorage();
+      this.currentTags = this.allTags.filter(tag => localhostTagNames?.includes(tag.text));
     });
 
     this.inputUpdated.subscribe(filterString => {
@@ -43,13 +54,13 @@ export class SearchBarComponent implements OnInit {
 
     this.tagAdded.subscribe(tagId => {
       this.currentTags.push(this.allTags.find(tag => tag._id === tagId));
-      this.postTagsToLocalHost(this.currentTags.map(tag => tag.text));
+      this.postTagsToLocalstorage(this.currentTags.map(tag => tag.text));
       this.filterForms();
     });
 
     this.tagRemoved.subscribe(tagId => {
       this.currentTags = this.currentTags.filter(tag => tag._id !== tagId);
-      this.postTagsToLocalHost(this.currentTags.map(tag => tag.text));
+      this.postTagsToLocalstorage(this.currentTags.map(tag => tag.text));
       this.filterForms();
     });
   }
@@ -72,11 +83,11 @@ export class SearchBarComponent implements OnInit {
     this.formsFiltered.next(filterForms);
   }
 
-  getTagNamesFromLocalhost(): string[] {
-    return [];
+  getTagNamesFromLocalstorage(): string[] {
+    return this.localstorageService.getByKey(this.localstorageService.TAG_NAMES);
   }
 
-  postTagsToLocalHost(tagNames: string[]): void{
-    return;
+  postTagsToLocalstorage(tagNames: string[]): void{
+    this.localstorageService.setItem(this.localstorageService.TAG_NAMES, tagNames);
   }
 }
