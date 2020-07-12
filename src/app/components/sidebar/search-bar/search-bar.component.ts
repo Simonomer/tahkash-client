@@ -38,7 +38,7 @@ export class SearchBarComponent implements OnInit {
   timeStampsToData = {
     [Timestamps.Week]: { value: 7, description: 'השבוע האחרון'},
     [Timestamps.Month]: { value: 30, description: 'החודש האחרון'},
-    [Timestamps.Year]: { value: 365, description: 'מהשנה האחרונה'},
+    [Timestamps.Year]: { value: 365, description: 'השנה האחרונה'},
     [Timestamps.Forever]: { value: 10000, description: 'קום המערכת'}
   }
 

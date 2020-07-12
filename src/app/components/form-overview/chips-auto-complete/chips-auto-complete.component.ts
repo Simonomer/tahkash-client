@@ -16,7 +16,7 @@ import {difference as _difference} from 'lodash';
 export class ChipsAutoCompleteComponent implements OnInit {
 
   removable = true;
-  separatorKeysCodes: number[] = [ENTER, COMMA];
+  separatorKeysCodes: number[] = [ENTER];
   chipsCtrl = new FormControl();
   filteredTags: Observable<string[]>;
 

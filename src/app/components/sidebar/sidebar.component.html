@@ -1,6 +1,8 @@
 <div class="sidebar">
   <search-bar [allForms]="allForms" [formsFiltered]="formsFiltered"></search-bar>
   <forms-management-table class="forms-management-table" [forms]="filteredForms" [updateForms]="formsUpdated"></forms-management-table>
-  <button mat-raised-button (click)="openNewFormDialog()">New form</button>
+  <button mat-fab (click)="openNewFormDialog()">
+    <mat-icon>add</mat-icon>
+  </button>
   <button mat-raised-button (click)="openSettingsDialog()">Settings</button>
 </div>

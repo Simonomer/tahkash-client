@@ -1,8 +1,14 @@
-@import '@angular/material/prebuilt-themes/deeppurple-amber.css';
+@import '~@angular/material/theming';
+@include mat-core();
+
+$app-primary: mat-palette($mat-blue);
+$app-accent: mat-palette($mat-gray);
 
 body, html {
   margin: 0;
   padding: 0;
   height: 100%;
   width: 100%;
+  font-family: Tahoma, Geneva, sans-serif;
 }
+
