@@ -26,7 +26,6 @@ import {FormEditorComponent} from './components/form-overview/form-editor/form-e
 import {FormsManagementTableComponent} from './components/sidebar/forms-table/forms-management-table.component';
 import {FormAnswersComponent} from './components/form-overview/form-answers/form-answers.component';
 import {NewFormDialogComponent} from './components/sidebar/new-form-dialog/new-form-dialog.component';
-import {ChipsAutoCompleteComponent} from './components/form-overview/chips-auto-complete/chips-auto-complete.component';
 import { AnswerPageComponent } from './components/answer-page/answer-page.component';
 import {ClipboardModule} from '@angular/cdk/clipboard';
 import {MatRadioModule} from '@angular/material/radio';
@@ -34,6 +33,9 @@ import { SettingsDialogComponent } from './components/settings-dialog/settings-d
 import { SearchBarComponent } from './components/sidebar/search-bar/search-bar.component';
 import {LocalstorageService} from './services/localstorage.service';
 import {MatMenuModule} from '@angular/material/menu';
+import {ChipsAutoCompleteComponent} from './components/chips-auto-complete/chips-auto-complete.component';
+import {TagsManagementService} from './services/tags.management.service';
+import {FilterService} from './services/filter.service';
 
 @NgModule({
   declarations: [
@@ -76,7 +78,9 @@ import {MatMenuModule} from '@angular/material/menu';
   providers: [
     ConnectionsService,
     FormsManagementService,
-    LocalstorageService
+    LocalstorageService,
+    TagsManagementService,
+    FilterService
   ],
   bootstrap: [AppComponent]
 })

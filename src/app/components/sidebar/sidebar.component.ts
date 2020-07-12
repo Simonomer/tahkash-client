@@ -6,6 +6,8 @@ import {IForm} from '../../models/form';
 import {Subject} from 'rxjs';
 import {SettingsDialogComponent} from '../settings-dialog/settings-dialog.component';
 import {ITag} from '../../models/tag';
+import {FormsManagementService} from '../../services/forms.management.service';
+import {FilterService} from '../../services/filter.service';
 
 @Component({
   selector: 'sidebar',
@@ -16,24 +18,16 @@ export class SidebarComponent implements OnInit {
 
   allForms: IForm[];
   filteredForms: IForm[];
-  formsUpdated: Subject<any>;
-  formsFiltered: Subject<IForm[]>;
 
   constructor(public dialog: MatDialog,
-              private connectionsService: ConnectionsService) { }
+              private connectionsService: ConnectionsService,
+              private formsManagementService: FormsManagementService,
+              private filterService: FilterService) { }
 
   ngOnInit(): void {
-    this.formsUpdated = new Subject<any>();
-    this.formsFiltered = new Subject<any>();
-    this.formsUpdated.subscribe(() => this.updateForms());
-    this.formsFiltered.subscribe(forms => this.filteredForms = forms);
-  }
-
-  updateForms() {
-    this.connectionsService.getAllForms().subscribe((forms: IForm[]) => {
-      this.allForms = forms;
-      this.filteredForms = forms;
-    });
+    this.formsManagementService.formsChanged.subscribe(forms => this.allForms = forms);
+    this.filterService.filteredFormsChanged.subscribe(filteredForms => this.filteredForms = filteredForms);
+    this.formsManagementService.updateForms();
   }
 
   openNewFormDialog(): void {
@@ -43,7 +37,7 @@ export class SidebarComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(formName => {
       if (formName) {
-        this.connectionsService.createForm(formName).subscribe(() => this.updateForms());
+        this.formsManagementService.createForm(formName);
       }
     });
   }

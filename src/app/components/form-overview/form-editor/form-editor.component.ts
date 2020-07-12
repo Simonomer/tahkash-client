@@ -5,8 +5,6 @@ import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {ConnectionsService} from '../../../services/connections.service';
 import {IQuestion} from '../../../models/question';
 
-
-
 @Component({
   selector: 'form-editor',
   templateUrl: './form-editor.component.html',

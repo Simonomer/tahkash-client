@@ -16,7 +16,6 @@ export class FormsManagementTableComponent implements OnInit {
 
   tagDeleted: Subject<{ tagId: string, formId: string }>;
   @Input() forms: IForm[];
-  @Input() updateForms: Subject<any>;
 
   constructor(private connectionsService: ConnectionsService,
               private formsManagementService: FormsManagementService,
@@ -27,7 +26,7 @@ export class FormsManagementTableComponent implements OnInit {
   ngOnInit(): void {
     this.tagDeleted = new Subject<{ tagId: string, formId: string }>();
     this.tagDeleted.subscribe(obj => this.onTagDeleted(obj.tagId, obj.formId));
-    this.updateForms.next();
+    this.formsManagementService.updateForms();
   }
 
   formClicked(formId: string) {
@@ -36,15 +35,15 @@ export class FormsManagementTableComponent implements OnInit {
 
   onTagDeleted(tagId: string, formId: string) {
     this.formsManagementService.removeTagFromForm(tagId, this.forms.find(form => form._id === formId))
-      .subscribe(() => this.updateForms.next());
+      .subscribe(() => this.formsManagementService.updateForms());
   }
 
   onDuplicateForm(formId: string) {
-    this.connectionsService.duplicateForm(formId).subscribe(() => this.updateForms.next());
+    this.connectionsService.duplicateForm(formId).subscribe(() => this.formsManagementService.updateForms());
   }
 
   onDeleteFormClick(formId: string) {
-    this.connectionsService.deleteForm(formId).subscribe(() => this.updateForms.next());
+    this.connectionsService.deleteForm(formId).subscribe(() => this.formsManagementService.updateForms());
   }
 
   copyToClipboardAnswerUrl(formId: string) {

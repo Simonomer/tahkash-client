@@ -4,7 +4,7 @@
     <mat-chip
       *ngFor="let tag of groupedByTags[group]"
       [removable]="removable"
-      (removed)="tagRemoved.next(tag._id)">
+      (removed)="deleteTag(tag._id)">
       {{tag.text}}
       <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
     </mat-chip>

@@ -4,6 +4,7 @@ import {ITag} from '../../models/tag';
 import {Subject} from 'rxjs';
 import {ConnectionsService} from '../../services/connections.service';
 import {ActivatedRoute, Router} from '@angular/router';
+import {TagsManagementService} from '../../services/tags.management.service';
 
 @Component({
   selector: 'form-overview',
@@ -22,7 +23,8 @@ export class FormOverviewComponent implements OnInit {
   constructor(
     private connectionsService: ConnectionsService,
     private route: ActivatedRoute,
-    private router: Router) { }
+    private router: Router,
+    private tagsManagementService: TagsManagementService) { }
 
   ngOnInit(): void {
     this.tagAdded = new Subject<string>();
@@ -30,7 +32,7 @@ export class FormOverviewComponent implements OnInit {
 
     this.route.paramMap.subscribe(paramsMap => {
       this.formId = paramsMap.get('formId');
-      this.connectionsService.getTags().subscribe(tags => this.completeTags = tags);
+      this.tagsManagementService.allTagsChanged.subscribe(tags => this.completeTags = tags);
       this.connectionsService.getForm(this.formId).subscribe(form => this.currentForm = form);
     });
 
