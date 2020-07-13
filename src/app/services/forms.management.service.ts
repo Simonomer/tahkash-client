@@ -6,7 +6,6 @@ import {Subject} from 'rxjs';
 @Injectable()
 export class FormsManagementService {
 
-  filterString: string;
   forms: IForm[] = [];
 
   formsChanged: Subject<IForm[]> = new Subject<IForm[]>();
