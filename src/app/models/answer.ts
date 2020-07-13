@@ -1,6 +1,6 @@
 export interface IAnswer {
-  _id: string,
-  question: string,
-  text: string,
-  rating: number
+  _id: string;
+  questionId: string;
+  text: string;
+  rating: number;
 }

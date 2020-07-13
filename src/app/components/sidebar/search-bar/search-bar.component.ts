@@ -1,7 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {some as _some} from 'lodash';
 
-import {ITag} from '../../../models/tag';
+import {IBucket} from '../../../models/bucket';
 import {ConnectionsService} from '../../../services/connections.service';
 import {Subject} from 'rxjs';
 import {IForm} from '../../../models/form';
@@ -9,7 +9,7 @@ import {LocalstorageService} from '../../../services/localstorage.service';
 import {Timestamps} from '../../../models/timestamp.enum';
 import {FormsManagementService} from '../../../services/forms.management.service';
 import {FilterService} from '../../../services/filter.service';
-import {TagsManagementService} from '../../../services/tags.management.service';
+import {BucketsManagementService} from '../../../services/buckets.management.service';
 
 @Component({
   selector: 'search-bar',
@@ -18,8 +18,8 @@ import {TagsManagementService} from '../../../services/tags.management.service';
 })
 export class SearchBarComponent implements OnInit {
 
-  allTags: ITag[];
-  currentTags: ITag[];
+  allBuckets: IBucket[];
+  currentBuckets: IBucket[];
   filterString: string;
   currentTimeBackFilter: Timestamps;
 
@@ -33,16 +33,16 @@ export class SearchBarComponent implements OnInit {
               private localstorageService: LocalstorageService,
               private formsManagementService: FormsManagementService,
               private filterService: FilterService,
-              private tagsManagementService: TagsManagementService) { }
+              private bucketsManagementService: BucketsManagementService) { }
 
   ngOnInit(): void {
     this.tagAdded = new Subject<string>();
     this.tagRemoved = new Subject<string>();
     this.inputUpdated = new Subject<string>();
 
-    this.tagsManagementService.allTagsChanged.subscribe(tags => this.allTags = tags);
+    this.bucketsManagementService.allBucketsChanged.subscribe(buckets => this.allBuckets = buckets);
     this.filterService.timeBackFilterChanged.subscribe(timeBackFilter => this.currentTimeBackFilter = timeBackFilter);
-    this.filterService.filteredTagsChanged.subscribe(filteredTags => this.currentTags = filteredTags);
+    this.filterService.filteredBucketsChanged.subscribe(filteredBuckets => this.currentBuckets = filteredBuckets);
 
     if (Timestamps[this.localstorageService.getByKey(this.localstorageService.TIME_BACK_FORMS)]) {
       const currentDatetimeFilter: string = this.localstorageService.getByKey(this.localstorageService.TIME_BACK_FORMS);
@@ -60,8 +60,8 @@ export class SearchBarComponent implements OnInit {
       this.filterService.updateFilterString(filterString);
     });
 
-    this.tagAdded.subscribe(tagId => this.filterService.addTag(tagId));
-    this.tagRemoved.subscribe(tagId => this.filterService.removeTag(tagId));
+    this.tagAdded.subscribe(tagId => this.filterService.addBucket(tagId));
+    this.tagRemoved.subscribe(tagId => this.filterService.removeBucket(tagId));
   }
 
   onTimestampChange(timestamp: string) {

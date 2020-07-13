@@ -25,7 +25,7 @@ export class FormsManagementTableComponent implements OnInit {
 
   ngOnInit(): void {
     this.tagDeleted = new Subject<{ tagId: string, formId: string }>();
-    this.tagDeleted.subscribe(obj => this.onTagDeleted(obj.tagId, obj.formId));
+    this.tagDeleted.subscribe(obj => this.onBucketDeleted(obj.tagId, obj.formId));
     this.formsManagementService.updateForms();
   }
 
@@ -33,8 +33,8 @@ export class FormsManagementTableComponent implements OnInit {
     this.router.navigate([formId], {relativeTo: this.activatedRoute})
   }
 
-  onTagDeleted(tagId: string, formId: string) {
-    this.formsManagementService.removeTagFromForm(tagId, this.forms.find(form => form._id === formId))
+  onBucketDeleted(tagId: string, formId: string) {
+    this.formsManagementService.removeBucketFromForm(tagId, this.forms.find(form => form._id === formId))
       .subscribe(() => this.formsManagementService.updateForms());
   }
 

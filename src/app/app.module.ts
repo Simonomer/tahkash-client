@@ -34,7 +34,7 @@ import { SearchBarComponent } from './components/sidebar/search-bar/search-bar.c
 import {LocalstorageService} from './services/localstorage.service';
 import {MatMenuModule} from '@angular/material/menu';
 import {ChipsAutoCompleteComponent} from './components/chips-auto-complete/chips-auto-complete.component';
-import {TagsManagementService} from './services/tags.management.service';
+import {BucketsManagementService} from './services/buckets.management.service';
 import {FilterService} from './services/filter.service';
 
 @NgModule({
@@ -79,7 +79,7 @@ import {FilterService} from './services/filter.service';
     ConnectionsService,
     FormsManagementService,
     LocalstorageService,
-    TagsManagementService,
+    BucketsManagementService,
     FilterService
   ],
   bootstrap: [AppComponent]

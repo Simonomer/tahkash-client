@@ -5,7 +5,7 @@ import {ConnectionsService} from '../../services/connections.service';
 import {IForm} from '../../models/form';
 import {Subject} from 'rxjs';
 import {SettingsDialogComponent} from '../settings-dialog/settings-dialog.component';
-import {ITag} from '../../models/tag';
+import {IBucket} from '../../models/bucket';
 import {FormsManagementService} from '../../services/forms.management.service';
 import {FilterService} from '../../services/filter.service';
 

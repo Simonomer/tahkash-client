@@ -1,6 +1,6 @@
 export interface IQuestion {
-  _id: string,
-  form: string,
-  text: string,
-  priority: number
+  _id: string;
+  bucket: string;
+  text: string;
+  priority: number;
 }

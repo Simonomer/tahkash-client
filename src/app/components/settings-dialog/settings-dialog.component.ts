@@ -2,9 +2,9 @@ import { groupBy as _groupBy } from 'lodash';
 import { Component, OnInit } from '@angular/core';
 import {MatDialogRef} from '@angular/material/dialog';
 
-import {ITag} from '../../models/tag';
+import {IBucket} from '../../models/bucket';
 import {ConnectionsService} from '../../services/connections.service';
-import {TagsManagementService} from '../../services/tags.management.service';
+import {BucketsManagementService} from '../../services/buckets.management.service';
 
 @Component({
   selector: 'app-settings-dialog',
@@ -15,34 +15,34 @@ export class SettingsDialogComponent implements OnInit {
 
   GROUP_BY = ['pluga', 'team', 'general'];
   removable = true;
-  completeTags: ITag[];
-  groupedByTags: { [groupName: string]: ITag[] } = {};
+  completeBuckets: IBucket[];
+  groupedByBuckets: { [groupName: string]: IBucket[] } = {};
 
   constructor(public dialogRef: MatDialogRef<SettingsDialogComponent>,
               private connectionsService: ConnectionsService,
-              private tagsManagementService: TagsManagementService) { }
+              private bucketsManagementService: BucketsManagementService) { }
 
   ngOnInit(): void {
-    this.tagsManagementService.updateTags();
-    this.tagsManagementService.allTagsChanged.subscribe(tags => {
-      this.matchTags(tags);
+    this.bucketsManagementService.updateBuckets();
+    this.bucketsManagementService.allBucketsChanged.subscribe(buckets => {
+      this.matchBuckets(buckets);
     })
   }
 
-  matchTags(tags: ITag[]) {
-    this.completeTags = tags;
-    this.groupedByTags = _groupBy(this.completeTags, (tag: ITag) => tag.group);
+  matchBuckets(buckets: IBucket[]) {
+    this.completeBuckets = buckets;
+    this.groupedByBuckets = _groupBy(this.completeBuckets, (bucket: IBucket) => bucket.group);
   }
 
   onCloseClick(): void {
     this.dialogRef.close();
   }
 
-  deleteTag(tagId: string) {
-    this.tagsManagementService.deleteTag(tagId);
+  deleteBucket(tagId: string) {
+    this.bucketsManagementService.deleteBucket(tagId);
   }
 
-  addTag(text, group) {
-    this.tagsManagementService.addTag(text, group);
+  addBucket(text, group) {
+    this.bucketsManagementService.addBucket(text, group);
   }
 }

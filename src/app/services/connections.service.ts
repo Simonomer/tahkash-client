@@ -1,10 +1,10 @@
-import {environment} from "../../environments/environment";
-import {Injectable} from "@angular/core";
-import {HttpClient} from "@angular/common/http";
-import {IQuestion} from "../models/question";
-import {Observable} from "rxjs";
-import {IForm} from "../models/form";
-import {ITag} from "../models/tag";
+import {environment} from '../../environments/environment';
+import {Injectable} from '@angular/core';
+import {HttpClient} from '@angular/common/http';
+import {IQuestion} from '../models/question';
+import {Observable} from 'rxjs';
+import {IForm} from '../models/form';
+import {IBucket} from '../models/bucket';
 import {IAnswer} from '../models/answer';
 import {QuestionWithAnswers} from '../models/question-with-answers';
 
@@ -13,9 +13,19 @@ export class ConnectionsService {
   constructor(private http: HttpClient) {
   }
 
+  // Buckets
+  searchBuckets(filters: object): Promise<IBucket[]> {
+    return this.http.post<IBucket[]>(`${environment.serviceUrl}/buckets/_search`, filters).toPromise();
+  }
+
+
   // Forms
+  searchForms(filters: object): Promise<IForm[]> {
+    return this.http.post<IForm[]>(`${environment.serviceUrl}/forms/_search`, filters).toPromise();
+  }
+
   createForm(formName: string): Observable<IForm> {
-    return this.http.post<IForm>(`${environment.serviceUrl}/form`, { name: formName });
+    return this.http.post<IForm>(`${environment.serviceUrl}/form`, {name: formName});
   }
 
   getAllForms(): Observable<IForm[]> {
@@ -27,7 +37,7 @@ export class ConnectionsService {
   }
 
   modifyForm(form: IForm): Observable<IForm> {
-    return this.http.put<IForm>(`${environment.serviceUrl}/form`, {...form, tags: form.tags.map(tag => tag._id)});
+    return this.http.put<IForm>(`${environment.serviceUrl}/form`, {...form, buckets: form.buckets.map(bucket => bucket._id)});
   }
 
   duplicateForm(formId: string): Observable<IForm> {
@@ -47,8 +57,8 @@ export class ConnectionsService {
     return this.http.get<IQuestion[]>(`${environment.serviceUrl}/form/question/${formId}`);
   }
 
-  removeQuestion(questionId: string) {
-    return this.http.delete(`${environment.serviceUrl}/question/${questionId}`);
+  removeQuestion(questionId: string): Promise<IQuestion> {
+    return this.http.delete<IQuestion>(`${environment.serviceUrl}/question/${questionId}`).toPromise();
   }
 
   modifyQuestions(questions: IQuestion[]): Observable<IQuestion[]> {
@@ -56,17 +66,17 @@ export class ConnectionsService {
     return this.http.put<IQuestion[]>(`${environment.serviceUrl}/question`, questions);
   }
 
-  // Tags
-  deleteTag(tagId: string): Observable<any> {
-    return this.http.delete(`${environment.serviceUrl}/tag/${tagId}`);
+  // buckets
+  deleteBucket(bucketId: string): Observable<any> {
+    return this.http.delete(`${environment.serviceUrl}/bucket/${bucketId}`);
   }
 
-  addTag(tag: ITag): Observable<ITag> {
-    return this.http.post<ITag>(`${environment.serviceUrl}/tag`, tag);
+  addBucket(bucket: IBucket): Observable<IBucket> {
+    return this.http.post<IBucket>(`${environment.serviceUrl}/bucket`, bucket);
   }
 
-  getTags(): Observable<ITag[]> {
-    return this.http.get<ITag[]>(`${environment.serviceUrl}/tags`);
+  getBuckets(): Observable<IBucket[]> {
+    return this.http.get<IBucket[]>(`${environment.serviceUrl}/buckets`);
   }
 
   // Answers
@@ -77,5 +87,4 @@ export class ConnectionsService {
   getAnswersForFormId(formId: string): Observable<QuestionWithAnswers[]> {
     return this.http.get<QuestionWithAnswers[]>(`${environment.serviceUrl}/answers/${formId}`);
   }
-
 }
