@@ -3,7 +3,7 @@ import {Injectable} from '@angular/core';
 @Injectable()
 export class LocalstorageService {
 
-  public TAG_NAMES = 'tagNames';
+  public BUCKET_NAMES = 'bucketNames';
   public TIME_BACK_FORMS = 'timeBackForms';
 
   getByKey(key: string) {

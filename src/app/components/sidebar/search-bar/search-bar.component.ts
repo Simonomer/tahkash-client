@@ -3,7 +3,7 @@ import {some as _some} from 'lodash';
 
 import {IBucket} from '../../../models/bucket';
 import {ConnectionsService} from '../../../services/connections.service';
-import {Subject} from 'rxjs';
+import {Observable, Subject} from 'rxjs';
 import {IForm} from '../../../models/form';
 import {LocalstorageService} from '../../../services/localstorage.service';
 import {Timestamps} from '../../../models/timestamp.enum';
@@ -18,13 +18,13 @@ import {BucketsManagementService} from '../../../services/buckets.management.ser
 })
 export class SearchBarComponent implements OnInit {
 
-  allBuckets: IBucket[];
+  buckets$: Observable<IBucket[]>;
   currentBuckets: IBucket[];
   filterString: string;
   currentTimeBackFilter: Timestamps;
 
-  tagAdded: Subject<string>;
-  tagRemoved: Subject<string>;
+  bucketAdded: Subject<string>;
+  bucketRemoved: Subject<string>;
   inputUpdated: Subject<string>;
 
   timeStampsToData = this.filterService.timeStampsToData;
@@ -35,12 +35,12 @@ export class SearchBarComponent implements OnInit {
               private filterService: FilterService,
               private bucketsManagementService: BucketsManagementService) { }
 
-  ngOnInit(): void {
-    this.tagAdded = new Subject<string>();
-    this.tagRemoved = new Subject<string>();
+  async ngOnInit(): Promise<void> {
+    this.bucketAdded = new Subject<string>();
+    this.bucketRemoved = new Subject<string>();
     this.inputUpdated = new Subject<string>();
 
-    this.bucketsManagementService.allBucketsChanged.subscribe(buckets => this.allBuckets = buckets);
+    this.buckets$ = this.bucketsManagementService.buckets$;
     this.filterService.timeBackFilterChanged.subscribe(timeBackFilter => this.currentTimeBackFilter = timeBackFilter);
     this.filterService.filteredBucketsChanged.subscribe(filteredBuckets => this.currentBuckets = filteredBuckets);
 
@@ -52,19 +52,19 @@ export class SearchBarComponent implements OnInit {
       this.currentTimeBackFilter = Timestamps[Timestamps[Timestamps.Week]];
     }
 
-    this.filterService.updateTimeBackFilter(this.currentTimeBackFilter)
-    this.filterService.init();
+    this.filterService.updateTimeBackFilter(this.currentTimeBackFilter);
+    await this.filterService.init();
 
     this.inputUpdated.subscribe(filterString => {
       this.filterString = filterString;
       this.filterService.updateFilterString(filterString);
     });
 
-    this.tagAdded.subscribe(tagId => this.filterService.addBucket(tagId));
-    this.tagRemoved.subscribe(tagId => this.filterService.removeBucket(tagId));
+    this.bucketAdded.subscribe(bucketId => this.filterService.addBucket(bucketId));
+    this.bucketRemoved.subscribe(bucketId => this.filterService.removeBucket(bucketId));
   }
 
-  onTimestampChange(timestamp: string) {
+  onTimestampChange(timestamp: string): void {
     this.filterService.updateTimeBackFilter(Timestamps[timestamp]);
   }
 }

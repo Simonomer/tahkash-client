@@ -1,16 +1,14 @@
-<div>
-  <mat-card (click)="formClicked(form._id)" class="form-item" *ngFor="let form of forms">
-    <span>{{form.name}}</span>
+<mat-card (click)="formClicked(form._id)" class="form-item" *ngFor="let form of forms">
+  <span>{{form.name}}</span>
 
-    <span>
-      <button mat-icon-button [matMenuTriggerFor]="menu">
-        <mat-icon>more_vert</mat-icon>
-      </button>
-      <mat-menu #menu="matMenu">
-        <button mat-menu-item (click)="onDuplicateForm(form._id)" aria-label="duplicating a form">Duplicate</button>
-        <button mat-menu-item (click)="copyToClipboardAnswerUrl(form._id)" aria-label="coping the form link to clipboard">Form link</button>
-        <button mat-menu-item (click)="onDeleteFormClick(form._id)" aria-label="deleting a form">Delete</button>
-      </mat-menu>
-    </span>
-  </mat-card>
-</div>
+  <button mat-icon-button [matMenuTriggerFor]="menu">
+    <mat-icon>more_vert</mat-icon>
+  </button>
+  <mat-menu #menu="matMenu">
+    <button mat-menu-item (click)="onDuplicateForm(form._id)" aria-label="duplicating a form">Duplicate</button>
+    <button mat-menu-item (click)="copyToClipboardAnswerUrl(form._id)"
+            aria-label="coping the form link to clipboard">Form link
+    </button>
+    <button mat-menu-item (click)="onDeleteFormClick(form._id)" aria-label="deleting a form">Delete</button>
+  </mat-menu>
+</mat-card>

@@ -15,8 +15,8 @@
   </div>
 
   <div class="chips-search">
-    <chips-auto-complete [allBuckets]="allBuckets" [currentBuckets]="currentBuckets"
-                         [tagAdded]="tagAdded" [tagRemoved]="tagRemoved"
+    <chips-auto-complete [allBuckets]="buckets$ | async" [currentBuckets]="currentBuckets"
+                         [bucketAdded]="bucketAdded" [bucketRemoved]="bucketRemoved"
                          [inputUpdating]="inputUpdated"></chips-auto-complete>
   </div>
 </div>

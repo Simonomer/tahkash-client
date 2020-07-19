@@ -1,9 +1,9 @@
-import {orderBy as _orderBy, meanBy as _meanBy} from 'lodash';
+import {meanBy as _meanBy, orderBy as _orderBy} from 'lodash';
 import {ActivatedRoute} from '@angular/router';
 import {Component, OnInit} from '@angular/core';
-import {IAnswer} from '../../../models/answer';
-import {ConnectionsService} from '../../../services/connections.service';
-import {QuestionWithAnswers} from '../../../models/question-with-answers';
+import {IAnswer} from '../../../../models/answer';
+import {ConnectionsService} from '../../../../services/connections.service';
+import {QuestionWithAnswers} from '../../../../models/question-with-answers';
 
 @Component({
   selector: 'form-answers',
@@ -17,7 +17,8 @@ export class FormAnswersComponent implements OnInit {
   questionsWithAnswers: QuestionWithAnswers[];
 
   constructor(private connectionsService: ConnectionsService,
-              private route: ActivatedRoute) { }
+              private route: ActivatedRoute) {
+  }
 
   ngOnInit(): void {
     this.route.parent.paramMap.subscribe(paramsMap => {
@@ -26,15 +27,12 @@ export class FormAnswersComponent implements OnInit {
     });
   }
 
-  updateQuestionsWithAnswers() {
-    this.connectionsService.getAnswersForFormId(this.formId).subscribe(questionsWithAnswers => {
-      console.log(questionsWithAnswers)
-      this.questionsWithAnswers = _orderBy(questionsWithAnswers, item => item.priority);
-    });
+  async updateQuestionsWithAnswers(): Promise<void> {
+    const questionsWithAnswers = await this.connectionsService.getAnswersForFormId(this.formId);
+    this.questionsWithAnswers = _orderBy(questionsWithAnswers, item => item.priority);
   }
 
-  averageRating(answers: IAnswer[]) {
+  averageRating(answers: IAnswer[]): any {
     return _meanBy(answers, answer => answer.rating);
   }
-
 }

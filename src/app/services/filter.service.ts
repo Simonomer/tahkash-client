@@ -34,18 +34,15 @@ export class FilterService {
               private localstorageService: LocalstorageService) {
   }
 
-  init() {
-
+  async init(): Promise<void> {
     this.updateTimeBackFilter(this.timeBackFilter);
-
-    this.connectionsService.getBuckets().subscribe(buckets => {
-      const localhostBucketNames = this.localstorageService.getByKey(this.localstorageService.TAG_NAMES);
-      this.filteredBuckets = buckets.filter(bucket => localhostBucketNames?.includes(bucket.name));
-      this.updateBuckets();
-    });
+    const buckets = await this.connectionsService.getBuckets();
+    const localhostBucketNames = this.localstorageService.getByKey(this.localstorageService.BUCKET_NAMES);
+    this.filteredBuckets = buckets.filter(bucket => localhostBucketNames?.includes(bucket.name));
+    this.updateBuckets();
   }
 
-  updateTimeBackFilter(timeBackFilter: Timestamps) {
+  updateTimeBackFilter(timeBackFilter: Timestamps): void {
     const currentTimestamp: string = Timestamps[timeBackFilter];
     this.timeBackFilter = Timestamps[currentTimestamp];
     this.localstorageService.setItem(this.localstorageService.TIME_BACK_FORMS, this.timeBackFilter);
@@ -53,28 +50,29 @@ export class FilterService {
     this.filterForms();
   }
 
-  updateFilterString(filterString: string) {
+  updateFilterString(filterString: string): void {
     this.queryString = filterString;
     this.filterForms();
   }
 
-  addBucket(tagId: string) {
-    this.filteredBuckets.push(this.bucketsManagementService.allBuckets.find(bucket => bucket._id === tagId));
+  addBucket(tagId: string): void {
+    const bucket1 = this.bucketsManagementService.buckets.find(bucket => bucket._id === tagId);
+    this.filteredBuckets.push(bucket1);
     this.updateBuckets();
   }
 
-  removeBucket(tagId: string) {
+  removeBucket(tagId: string): void {
     this.filteredBuckets = this.filteredBuckets.filter(bucket => bucket._id !== tagId);
     this.updateBuckets();
   }
 
-  updateBuckets() {
-    this.localstorageService.setItem(this.localstorageService.TAG_NAMES, this.filteredBuckets.map(bucket => bucket.name));
+  updateBuckets(): void {
+    this.localstorageService.setItem(this.localstorageService.BUCKET_NAMES, this.filteredBuckets.map(bucket => bucket.name));
     this.filteredBucketsChanged.next(this.filteredBuckets);
     this.filterForms();
   }
 
-  filterForms() {
+  filterForms(): void {
     let filterForms = this.formsManagementService.forms?.slice();
 
     if (this.queryString) {

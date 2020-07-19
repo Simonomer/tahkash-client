@@ -1,4 +1,5 @@
 @import '~@angular/material/theming';
+
 @include mat-core();
 
 $app-primary: mat-palette($mat-blue);
@@ -7,8 +8,12 @@ $app-accent: mat-palette($mat-gray);
 body, html {
   margin: 0;
   padding: 0;
-  height: 100%;
-  width: 100%;
+  height: 100vh;
+  width: 100vw;
   font-family: Tahoma, Geneva, sans-serif;
+  direction: rtl;
 }
 
+* {
+  box-sizing: border-box;
+}

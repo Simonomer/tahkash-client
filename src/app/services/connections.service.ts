@@ -2,7 +2,6 @@ import {environment} from '../../environments/environment';
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {IQuestion} from '../models/question';
-import {Observable} from 'rxjs';
 import {IForm} from '../models/form';
 import {IBucket} from '../models/bucket';
 import {IAnswer} from '../models/answer';
@@ -24,67 +23,67 @@ export class ConnectionsService {
     return this.http.post<IForm[]>(`${environment.serviceUrl}/forms/_search`, filters).toPromise();
   }
 
-  createForm(formName: string): Observable<IForm> {
-    return this.http.post<IForm>(`${environment.serviceUrl}/form`, {name: formName});
+  createForm(formName: string): Promise<IForm> {
+    return this.http.post<IForm>(`${environment.serviceUrl}/form`, {name: formName}).toPromise();
   }
 
-  getAllForms(): Observable<IForm[]> {
-    return this.http.get<IForm[]>(`${environment.serviceUrl}/forms/true`);
+  getAllForms(): Promise<IForm[]> {
+    return this.http.get<IForm[]>(`${environment.serviceUrl}/forms/true`).toPromise();
   }
 
-  getForm(formId: string): Observable<IForm> {
-    return this.http.get<IForm>(`${environment.serviceUrl}/form/${formId}`);
+  getForm(formId: string): Promise<IForm> {
+    return this.http.get<IForm>(`${environment.serviceUrl}/form/${formId}`).toPromise();
   }
 
-  modifyForm(form: IForm): Observable<IForm> {
-    return this.http.put<IForm>(`${environment.serviceUrl}/form`, {...form, buckets: form.buckets.map(bucket => bucket._id)});
+  modifyForm(form: IForm): Promise<IForm> {
+    return this.http.put<IForm>(`${environment.serviceUrl}/form`, {...form, buckets: form.buckets.map(bucket => bucket._id)}).toPromise();
   }
 
-  duplicateForm(formId: string): Observable<IForm> {
-    return this.http.post<IForm>(`${environment.serviceUrl}/form/duplicate`, {_id: formId});
+  duplicateForm(formId: string): Promise<IForm> {
+    return this.http.post<IForm>(`${environment.serviceUrl}/form/duplicate`, {_id: formId}).toPromise();
   }
 
-  deleteForm(formId: string): Observable<IForm> {
-    return this.http.delete<IForm>(`${environment.serviceUrl}/form/${formId}`);
+  deleteForm(formId: string): Promise<IForm> {
+    return this.http.delete<IForm>(`${environment.serviceUrl}/form/${formId}`).toPromise();
   }
 
   // Questions
-  addQuestion(formId: string, text: string): Observable<IQuestion> {
-    return this.http.post<IQuestion>(`${environment.serviceUrl}/form/question/${formId}`, {text});
+  addQuestion(formId: string, text: string): Promise<IQuestion> {
+    return this.http.post<IQuestion>(`${environment.serviceUrl}/form/question/${formId}`, {text}).toPromise();
   }
 
-  getFormQuestions(formId: string): Observable<IQuestion[]> {
-    return this.http.get<IQuestion[]>(`${environment.serviceUrl}/form/question/${formId}`);
+  getFormQuestions(formId: string): Promise<IQuestion[]> {
+    return this.http.get<IQuestion[]>(`${environment.serviceUrl}/form/question/${formId}`).toPromise();
   }
 
   removeQuestion(questionId: string): Promise<IQuestion> {
     return this.http.delete<IQuestion>(`${environment.serviceUrl}/question/${questionId}`).toPromise();
   }
 
-  modifyQuestions(questions: IQuestion[]): Observable<IQuestion[]> {
+  modifyQuestions(questions: IQuestion[]): Promise<IQuestion[]> {
     questions.map((question, index) => question.priority = index);
-    return this.http.put<IQuestion[]>(`${environment.serviceUrl}/question`, questions);
+    return this.http.put<IQuestion[]>(`${environment.serviceUrl}/question`, questions).toPromise();
   }
 
-  // buckets
-  deleteBucket(bucketId: string): Observable<any> {
-    return this.http.delete(`${environment.serviceUrl}/bucket/${bucketId}`);
+  // buckets$
+  deleteBucket(bucketId: string): Promise<any> {
+    return this.http.delete(`${environment.serviceUrl}/bucket/${bucketId}`).toPromise();
   }
 
-  addBucket(bucket: IBucket): Observable<IBucket> {
-    return this.http.post<IBucket>(`${environment.serviceUrl}/bucket`, bucket);
+  addBucket(bucket: IBucket): Promise<IBucket> {
+    return this.http.post<IBucket>(`${environment.serviceUrl}/bucket`, bucket).toPromise();
   }
 
-  getBuckets(): Observable<IBucket[]> {
-    return this.http.get<IBucket[]>(`${environment.serviceUrl}/buckets`);
+  getBuckets(): Promise<IBucket[]> {
+    return this.http.get<IBucket[]>(`${environment.serviceUrl}/buckets`).toPromise();
   }
 
   // Answers
-  postAnswers(answers: IAnswer[]): Observable<IAnswer[]> {
-    return this.http.post<IAnswer[]>(`${environment.serviceUrl}/answers`, answers);
+  postAnswers(answers: IAnswer[]): Promise<IAnswer[]> {
+    return this.http.post<IAnswer[]>(`${environment.serviceUrl}/answers`, answers).toPromise();
   }
 
-  getAnswersForFormId(formId: string): Observable<QuestionWithAnswers[]> {
-    return this.http.get<QuestionWithAnswers[]>(`${environment.serviceUrl}/answers/${formId}`);
+  getAnswersForFormId(formId: string): Promise<QuestionWithAnswers[]> {
+    return this.http.get<QuestionWithAnswers[]>(`${environment.serviceUrl}/answers/${formId}`).toPromise();
   }
 }

@@ -1,11 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {NewFormDialogComponent} from './new-form-dialog/new-form-dialog.component';
 import {MatDialog} from '@angular/material/dialog';
 import {ConnectionsService} from '../../services/connections.service';
 import {IForm} from '../../models/form';
-import {Subject} from 'rxjs';
-import {SettingsDialogComponent} from '../settings-dialog/settings-dialog.component';
-import {IBucket} from '../../models/bucket';
 import {FormsManagementService} from '../../services/forms.management.service';
 import {FilterService} from '../../services/filter.service';
 
@@ -16,18 +13,16 @@ import {FilterService} from '../../services/filter.service';
 })
 export class SidebarComponent implements OnInit {
 
-  allForms: IForm[];
   filteredForms: IForm[];
 
   constructor(public dialog: MatDialog,
               private connectionsService: ConnectionsService,
               private formsManagementService: FormsManagementService,
-              private filterService: FilterService) { }
+              private filterService: FilterService) {
+  }
 
-  ngOnInit(): void {
-    this.formsManagementService.formsChanged.subscribe(forms => this.allForms = forms);
+  async ngOnInit(): Promise<void> {
     this.filterService.filteredFormsChanged.subscribe(filteredForms => this.filteredForms = filteredForms);
-    this.formsManagementService.updateForms();
   }
 
   openNewFormDialog(): void {
@@ -35,18 +30,10 @@ export class SidebarComponent implements OnInit {
       width: '250px'
     });
 
-    dialogRef.afterClosed().subscribe(formName => {
+    dialogRef.afterClosed().subscribe(async formName => {
       if (formName) {
-        this.formsManagementService.createForm(formName);
+        await this.formsManagementService.createForm(formName);
       }
     });
   }
-
-  openSettingsDialog(): void {
-    const dialogRef = this.dialog.open(SettingsDialogComponent, {
-      width: '500px',
-      height: '500px'
-    });
-  }
-
 }

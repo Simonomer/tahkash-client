@@ -22,8 +22,8 @@ export class ChipsAutoCompleteComponent implements OnInit {
 
   @Input() currentBuckets: IBucket[];
   @Input() allBuckets: IBucket[];
-  @Input() tagAdded: Subject<string>;
-  @Input() tagRemoved: Subject<string>;
+  @Input() bucketAdded: Subject<string>;
+  @Input() bucketRemoved: Subject<string>;
   @Input() inputUpdating: Subject<string>;
   @ViewChild('chipsInput') chipsInput: ElementRef<HTMLInputElement>;
   @ViewChild('auto') matAutocomplete: MatAutocomplete;
@@ -35,10 +35,11 @@ export class ChipsAutoCompleteComponent implements OnInit {
     this.filteredBuckets = this.chipsCtrl.valueChanges.pipe(
       startWith(null),
       map((bucket: string | null) => bucket ? this._filter(bucket) :
-        _difference(this.allBuckets?.slice().map(bucket => bucket.name), this.currentBuckets?.slice().map(bucket => bucket.name))));
+        _difference(this.allBuckets.map(bucket1 => bucket1.name),
+          this.currentBuckets.map(bucket1 => bucket1.name))));
 
     if (this.inputUpdating) {
-      this.chipsCtrl.valueChanges.subscribe(value => this.inputUpdating.next(value))
+      this.chipsCtrl.valueChanges.subscribe(value => this.inputUpdating.next(value));
     }
   }
 
@@ -49,7 +50,7 @@ export class ChipsAutoCompleteComponent implements OnInit {
     if ((value || '').trim()) {
       const foundBucket = this.allBuckets.find(bucket => bucket.name === value.trim());
       if (foundBucket) {
-        this.tagAdded.next(foundBucket._id);
+        this.bucketAdded.next(foundBucket._id);
       }
     }
 
@@ -61,17 +62,17 @@ export class ChipsAutoCompleteComponent implements OnInit {
     this.chipsCtrl.setValue(null);
   }
 
-  remove(tagId: string): void {
-    const foundBucket = this.currentBuckets.find(bucket => bucket._id === tagId);
+  remove(bucketId: string): void {
+    const foundBucket = this.currentBuckets.find(bucket => bucket._id === bucketId);
 
     if (foundBucket) {
-      this.tagRemoved.next(tagId);
+      this.bucketRemoved.next(bucketId);
     }
   }
 
   selected(event: MatAutocompleteSelectedEvent): void {
     const foundBucket = this.allBuckets.find(bucket => bucket.name === event.option.viewValue);
-    this.tagAdded.next(foundBucket._id);
+    this.bucketAdded.next(foundBucket._id);
     this.chipsInput.nativeElement.value = '';
     this.chipsCtrl.setValue(null);
   }

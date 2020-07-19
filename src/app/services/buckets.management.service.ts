@@ -1,31 +1,40 @@
 import {Injectable} from '@angular/core';
 import {ConnectionsService} from './connections.service';
 import {IBucket} from '../models/bucket';
-import {Subject} from 'rxjs';
+import {ContextsService} from './contexts.service';
+import {ContextTypes} from './contexts.service/emums';
+import {Observable} from 'rxjs';
 
 @Injectable()
 export class BucketsManagementService {
 
-  allBuckets: IBucket[];
+  public buckets$: Observable<IBucket[]>;
 
-  allBucketsChanged: Subject<IBucket[]> = new Subject<IBucket[]>();
-
-  constructor(private connectionsService: ConnectionsService) {
-    this.updateBuckets();
+  public set buckets(value: IBucket[]) {
+    this.contextsService.setCurrentContextValue(ContextTypes.buckets, value);
   }
 
-  updateBuckets() {
-    this.connectionsService.getBuckets().subscribe(buckets => {
-      this.allBuckets = buckets;
-      this.allBucketsChanged.next(buckets);
-    })
+  public get buckets(): IBucket[] {
+    return this.contextsService.getCurrentContextValue(ContextTypes.buckets);
   }
 
-  deleteBucket(tagId: string) {
-    this.connectionsService.deleteBucket(tagId).subscribe(() => this.updateBuckets());
+  constructor(private contextsService: ContextsService,
+              private connectionsService: ConnectionsService) {
+    this.buckets$ = this.contextsService.watchSelectedContext(ContextTypes.buckets);
+
   }
 
-  addBucket(text: string, group?: string) {
-    this.connectionsService.addBucket({text, group} as IBucket).subscribe(() => this.updateBuckets());
+  public async updateBucketsFromServer(): Promise<void> {
+    this.buckets = await this.connectionsService.getBuckets();
+  }
+
+  public async deleteBucket(bucketId: string): Promise<void> {
+    await this.connectionsService.deleteBucket(bucketId);
+    await this.updateBucketsFromServer();
+  }
+
+  async createBucket(name: string): Promise<void> {
+    await this.connectionsService.addBucket({name});
+    await this.updateBucketsFromServer();
   }
 }
