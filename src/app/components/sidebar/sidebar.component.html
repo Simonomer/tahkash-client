@@ -1,5 +1,5 @@
-<search-bar></search-bar>
-<forms-management-table [forms]="filteredForms"></forms-management-table>
-<button mat-fab (click)="openNewFormDialog()">
+<search-bar [items]="items" (onFilterFormsChange)="onFilterForms($event)"></search-bar>
+<items-management-table [items]="filteredItems" (action)="onAction($event)"></items-management-table>
+<button mat-fab (click)="openNewItemDialog()">
   <mat-icon>add</mat-icon>
 </button>

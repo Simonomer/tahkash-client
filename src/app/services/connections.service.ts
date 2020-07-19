@@ -74,8 +74,8 @@ export class ConnectionsService {
     return this.http.delete(`${environment.serviceUrl}/bucket/${bucketId}`).toPromise();
   }
 
-  addBucket(bucket: IBucket): Promise<IBucket> {
-    return this.http.post<IBucket>(`${environment.serviceUrl}/bucket`, bucket).toPromise();
+  addBucket(name: string): Promise<IBucket> {
+    return this.http.post<IBucket>(`${environment.serviceUrl}/bucket`, {name}).toPromise();
   }
 
   getBuckets(): Promise<IBucket[]> {

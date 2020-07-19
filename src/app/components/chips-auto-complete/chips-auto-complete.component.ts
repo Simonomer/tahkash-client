@@ -35,8 +35,8 @@ export class ChipsAutoCompleteComponent implements OnInit {
     this.filteredBuckets = this.chipsCtrl.valueChanges.pipe(
       startWith(null),
       map((bucket: string | null) => bucket ? this._filter(bucket) :
-        _difference(this.allBuckets?.map(bucket1 => bucket1.name),
-          this.currentBuckets?.map(bucket1 => bucket1.name))));
+        _difference(this.allBuckets?.map(bucket1 => bucket1._id),
+          this.currentBuckets?.map(bucket1 => bucket1._id))));
 
     if (this.inputUpdating) {
       this.chipsCtrl.valueChanges.subscribe(value => this.inputUpdating.next(value));
@@ -48,7 +48,7 @@ export class ChipsAutoCompleteComponent implements OnInit {
     const value = event.value;
 
     if ((value || '').trim()) {
-      const foundBucket = this.allBuckets.find(bucket => bucket.name === value.trim());
+      const foundBucket = this.allBuckets.find(bucket => bucket._id === value.trim());
       if (foundBucket) {
         this.bucketAdded.next(foundBucket._id);
       }
@@ -71,7 +71,7 @@ export class ChipsAutoCompleteComponent implements OnInit {
   }
 
   selected(event: MatAutocompleteSelectedEvent): void {
-    const foundBucket = this.allBuckets.find(bucket => bucket.name === event.option.viewValue);
+    const foundBucket = this.allBuckets.find(bucket => bucket._id === event.option.viewValue);
     this.bucketAdded.next(foundBucket._id);
     this.chipsInput.nativeElement.value = '';
     this.chipsCtrl.setValue(null);
@@ -79,6 +79,6 @@ export class ChipsAutoCompleteComponent implements OnInit {
 
   private _filter(value: string): string[] {
     const filterValue = value.toLowerCase();
-    return this.allBuckets.map(bucket => bucket.name).filter(bucket => bucket.toLowerCase().indexOf(filterValue) === 0);
+    return this.allBuckets.map(bucket => bucket._id).filter(bucket => bucket.toLowerCase().indexOf(filterValue) === 0);
   }
 }

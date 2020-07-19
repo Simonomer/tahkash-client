@@ -2,10 +2,10 @@
   <p>Form name?</p>
   <mat-form-field>
     <mat-label>Form name:</mat-label>
-    <input matInput [(ngModel)]="formName">
+    <input matInput [(ngModel)]="itemName">
   </mat-form-field>
 </div>
 <div mat-dialog-actions>
   <button mat-button (click)="onCloseClick()">Close</button>
-  <button mat-button [mat-dialog-close]="formName" cdkFocusInitial>Ok</button>
+  <button mat-button [mat-dialog-close]="itemName" cdkFocusInitial>Ok</button>
 </div>

@@ -1,10 +1,12 @@
-import {Component, OnInit} from '@angular/core';
-import {NewFormDialogComponent} from './new-form-dialog/new-form-dialog.component';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {NewItemDialogComponent} from './new-item-dialog/new-item-dialog.component';
 import {MatDialog} from '@angular/material/dialog';
 import {ConnectionsService} from '../../services/connections.service';
 import {IForm} from '../../models/form';
 import {FormsManagementService} from '../../services/forms.management.service';
-import {FilterService} from '../../services/filter.service';
+import {Observable} from 'rxjs';
+import {IHasIdAndName} from '../../models/has-name';
+import {IActionHandler} from './interfaces';
 
 @Component({
   selector: 'sidebar',
@@ -13,26 +15,36 @@ import {FilterService} from '../../services/filter.service';
 })
 export class SidebarComponent implements OnInit {
 
-  filteredForms: IForm[];
+  _items: IHasIdAndName[];
+  @Input() get items(): IHasIdAndName[] { return this._items };
+  set items(value: IHasIdAndName[]) { this._items = value; }
 
-  constructor(public dialog: MatDialog,
-              private connectionsService: ConnectionsService,
-              private formsManagementService: FormsManagementService,
-              private filterService: FilterService) {
+  filteredItems: IHasIdAndName[];
+  @Output() action = new EventEmitter<IActionHandler>()
+
+  constructor(public dialog: MatDialog) {
   }
 
-  async ngOnInit(): Promise<void> {
-    this.filterService.filteredFormsChanged.subscribe(filteredForms => this.filteredForms = filteredForms);
+  ngOnInit(): void {
+    this.filteredItems = this.items;
   }
 
-  openNewFormDialog(): void {
-    const dialogRef = this.dialog.open(NewFormDialogComponent, {
+  onAction(action: IActionHandler): void {
+    this.action.emit(action);
+  }
+
+  onFilterForms(filteredItems: IHasIdAndName[]): void {
+    this.filteredItems = filteredItems;
+  }
+
+  openNewItemDialog(): void {
+    const dialogRef = this.dialog.open(NewItemDialogComponent, {
       width: '250px'
     });
 
-    dialogRef.afterClosed().subscribe(async formName => {
-      if (formName) {
-        await this.formsManagementService.createForm(formName);
+    dialogRef.afterClosed().subscribe(async name => {
+      if (name) {
+        this.action.emit({param: name, action: 'Create'})
       }
     });
   }

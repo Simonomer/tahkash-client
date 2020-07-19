@@ -34,7 +34,7 @@ export class BucketsManagementService {
   }
 
   async createBucket(name: string): Promise<void> {
-    await this.connectionsService.addBucket({name});
+    await this.connectionsService.addBucket(name);
     await this.updateBucketsFromServer();
   }
 }

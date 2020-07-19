@@ -1,4 +1,4 @@
 export enum ContextTypes {
   buckets,
-  forms
+  forms,
 }

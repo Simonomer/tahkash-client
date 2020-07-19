@@ -23,9 +23,9 @@ import {MatDialogModule} from '@angular/material/dialog';
 import {FormOverviewComponent} from './pages/editor-page/form-overview/form-overview.component';
 import {SidebarComponent} from './components/sidebar/sidebar.component';
 import {FormEditorComponent} from './pages/editor-page/form-overview/form-editor/form-editor.component';
-import {FormsManagementTableComponent} from './components/sidebar/forms-table/forms-management-table.component';
+import {ItemsManagementTableComponent} from './components/sidebar/items-table/items-management-table.component';
 import {FormAnswersComponent} from './pages/editor-page/form-overview/form-answers/form-answers.component';
-import {NewFormDialogComponent} from './components/sidebar/new-form-dialog/new-form-dialog.component';
+import {NewItemDialogComponent} from './components/sidebar/new-item-dialog/new-item-dialog.component';
 import {AnswerPageComponent} from './pages/answer-page/answer-page.component';
 import {ClipboardModule} from '@angular/cdk/clipboard';
 import {MatRadioModule} from '@angular/material/radio';
@@ -34,7 +34,6 @@ import {LocalstorageService} from './services/localstorage.service';
 import {MatMenuModule} from '@angular/material/menu';
 import {ChipsAutoCompleteComponent} from './components/chips-auto-complete/chips-auto-complete.component';
 import {BucketsManagementService} from './services/buckets.management.service';
-import {FilterService} from './services/filter.service';
 import {BucketOverviewComponent} from './pages/editor-page/bucket-overview/bucket-overview.component';
 import {ContextsService} from './services/contexts.service';
 
@@ -42,13 +41,13 @@ import {ContextsService} from './services/contexts.service';
   declarations: [
     AppComponent,
     FormEditorComponent,
-    FormsManagementTableComponent,
+    ItemsManagementTableComponent,
     ChipsAutoCompleteComponent,
     EditorPageComponent,
     FormAnswersComponent,
     FormOverviewComponent,
     SidebarComponent,
-    NewFormDialogComponent,
+    NewItemDialogComponent,
     AnswerPageComponent,
     SearchBarComponent,
     BucketOverviewComponent
@@ -81,7 +80,6 @@ import {ContextsService} from './services/contexts.service';
     FormsManagementService,
     LocalstorageService,
     BucketsManagementService,
-    FilterService,
     ContextsService
   ],
   bootstrap: [AppComponent]

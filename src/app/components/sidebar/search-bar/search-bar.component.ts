@@ -1,50 +1,33 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 
-import {IBucket} from '../../../models/bucket';
-import {ConnectionsService} from '../../../services/connections.service';
-import {Observable, Subject} from 'rxjs';
-import {LocalstorageService} from '../../../services/localstorage.service';
-import {FormsManagementService} from '../../../services/forms.management.service';
-import {FilterService} from '../../../services/filter.service';
-import {BucketsManagementService} from '../../../services/buckets.management.service';
+import {IHasIdAndName} from '../../../models/has-name';
 
 @Component({
   selector: 'search-bar',
   templateUrl: './search-bar.component.html',
   styleUrls: ['./search-bar.component.scss']
 })
-export class SearchBarComponent implements OnInit {
+export class SearchBarComponent {
 
-  buckets$: Observable<IBucket[]>;
-  currentBuckets: IBucket[];
-  filterString: string;
-
-  bucketAdded: Subject<string>;
-  bucketRemoved: Subject<string>;
-  inputUpdated: Subject<string>;
-
-  constructor(private connectionsService: ConnectionsService,
-              private localstorageService: LocalstorageService,
-              private formsManagementService: FormsManagementService,
-              private filterService: FilterService,
-              private bucketsManagementService: BucketsManagementService) { }
-
-  async ngOnInit(): Promise<void> {
-    this.bucketAdded = new Subject<string>();
-    this.bucketRemoved = new Subject<string>();
-    this.inputUpdated = new Subject<string>();
-
-    this.buckets$ = this.bucketsManagementService.buckets$;
-    this.filterService.filteredBucketsChanged.subscribe(filteredBuckets => this.currentBuckets = filteredBuckets);
-
-    await this.filterService.filterForms();
-
-    this.inputUpdated.subscribe(filterString => {
-      this.filterString = filterString;
-      this.filterService.updateFilterString(filterString);
-    });
-
-    this.bucketAdded.subscribe(bucketId => this.filterService.addBucket(bucketId));
-    this.bucketRemoved.subscribe(bucketId => this.filterService.removeBucket(bucketId));
+  _items: IHasIdAndName[];
+  @Input() get items(): IHasIdAndName[] { return this._items };
+  set items(value: IHasIdAndName[]) {
+    this._items = value;
+    this.onFilterStringChange(this._filterString);
   }
+
+  @Output() onFilterFormsChange = new EventEmitter<IHasIdAndName[]>();
+
+  _filterString: string;
+  get filterString(): string { return this._filterString };
+  set filterString(value: string) {
+    this._filterString = value;
+    this.onFilterStringChange(value);
+  }
+
+  onFilterStringChange(value: string) {
+    const filteredItems = this.items?.filter(item => item.name.includes(value));
+    this.onFilterFormsChange.emit(filteredItems);
+  }
+
 }

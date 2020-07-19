@@ -1,4 +1,4 @@
-export interface IBucket {
-  _id?: string;
-  name: string;
+import {IHasIdAndName} from './has-name';
+
+export interface IBucket extends IHasIdAndName {
 }

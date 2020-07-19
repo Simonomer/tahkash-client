@@ -3,13 +3,13 @@ import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 
 @Component({
   selector: 'new-form-dialog',
-  templateUrl: 'new-form-dialog.component.html',
+  templateUrl: 'new-item-dialog.component.html',
 })
-export class NewFormDialogComponent {
+export class NewItemDialogComponent {
 
-  formName: string;
+  itemName: string;
 
-  constructor(public dialogRef: MatDialogRef<NewFormDialogComponent>) {}
+  constructor(public dialogRef: MatDialogRef<NewItemDialogComponent>) {}
 
   onCloseClick(): void {
     this.dialogRef.close();
