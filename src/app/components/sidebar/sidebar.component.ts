@@ -16,8 +16,8 @@ import {IActionHandler} from './interfaces';
 export class SidebarComponent implements OnInit {
 
   _items: IHasIdAndName[];
-  @Input() get items(): IHasIdAndName[] { return this._items };
-  set items(value: IHasIdAndName[]) { this._items = value; }
+  get items(): IHasIdAndName[] { return this._items };
+  @Input() set items(value: IHasIdAndName[]) { this._items = value; }
 
   filteredItems: IHasIdAndName[];
   @Output() action = new EventEmitter<IActionHandler>()

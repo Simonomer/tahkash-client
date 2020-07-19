@@ -7,8 +7,8 @@ export class ContextsService {
   private contexts: Partial<Record<ContextTypes, BehaviorSubject<any>>> = {};
 
   public setCurrentContextValue(contextType: ContextTypes, contextValue: any): void {
-    const isNotExists = this.ensureHasType(contextType, contextValue);
-    if (!isNotExists) {
+    const isExists = this.ensureHasType(contextType, contextValue);
+    if (isExists) {
       this.contexts[contextType].next(contextValue);
     }
   }

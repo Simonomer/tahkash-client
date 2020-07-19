@@ -10,7 +10,8 @@ import {IHasIdAndName} from '../../../models/has-name';
 export class SearchBarComponent {
 
   _items: IHasIdAndName[];
-  @Input() get items(): IHasIdAndName[] { return this._items };
+  get items(): IHasIdAndName[] { return this._items };
+  @Input()
   set items(value: IHasIdAndName[]) {
     this._items = value;
     this.onFilterStringChange(this._filterString);
@@ -18,7 +19,7 @@ export class SearchBarComponent {
 
   @Output() onFilterFormsChange = new EventEmitter<IHasIdAndName[]>();
 
-  _filterString: string;
+  _filterString: string = '';
   get filterString(): string { return this._filterString };
   set filterString(value: string) {
     this._filterString = value;
