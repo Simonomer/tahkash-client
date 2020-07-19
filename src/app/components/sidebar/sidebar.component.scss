@@ -5,4 +5,12 @@
   display: flex;
   justify-content: space-between;
   flex-direction: column;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.new-form-button {
+  margin: 15px;
 }
