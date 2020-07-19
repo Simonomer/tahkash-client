@@ -1,10 +1,6 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {NewItemDialogComponent} from './new-item-dialog/new-item-dialog.component';
 import {MatDialog} from '@angular/material/dialog';
-import {ConnectionsService} from '../../services/connections.service';
-import {IForm} from '../../models/form';
-import {FormsManagementService} from '../../services/forms.management.service';
-import {Observable} from 'rxjs';
 import {IHasIdAndName} from '../../models/has-name';
 import {IActionHandler} from './interfaces';
 
@@ -13,20 +9,21 @@ import {IActionHandler} from './interfaces';
   templateUrl: './sidebar.component.html',
   styleUrls: ['./sidebar.component.scss']
 })
-export class SidebarComponent implements OnInit {
+export class SidebarComponent {
 
   _items: IHasIdAndName[];
-  get items(): IHasIdAndName[] { return this._items };
-  @Input() set items(value: IHasIdAndName[]) { this._items = value; }
-
-  filteredItems: IHasIdAndName[];
-  @Output() action = new EventEmitter<IActionHandler>()
-
-  constructor(public dialog: MatDialog) {
+  get items(): IHasIdAndName[] {
+    return this._items;
   }
 
-  ngOnInit(): void {
-    this.filteredItems = this.items;
+  @Input() set items(value: IHasIdAndName[]) {
+    this._items = value;
+  }
+
+  filteredItems: IHasIdAndName[];
+  @Output() action = new EventEmitter<IActionHandler>();
+
+  constructor(public dialog: MatDialog) {
   }
 
   onAction(action: IActionHandler): void {
@@ -44,7 +41,7 @@ export class SidebarComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(async name => {
       if (name) {
-        this.action.emit({param: name, action: 'Create'})
+        this.action.emit({param: name, action: 'Create'});
       }
     });
   }

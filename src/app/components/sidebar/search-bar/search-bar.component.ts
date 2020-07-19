@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, Output} from '@angular/core';
 
 import {IHasIdAndName} from '../../../models/has-name';
 
@@ -10,7 +10,10 @@ import {IHasIdAndName} from '../../../models/has-name';
 export class SearchBarComponent {
 
   _items: IHasIdAndName[];
-  get items(): IHasIdAndName[] { return this._items };
+  get items(): IHasIdAndName[] {
+    return this._items;
+  };
+
   @Input()
   set items(value: IHasIdAndName[]) {
     this._items = value;
@@ -20,7 +23,10 @@ export class SearchBarComponent {
   @Output() onFilterFormsChange = new EventEmitter<IHasIdAndName[]>();
 
   _filterString: string = '';
-  get filterString(): string { return this._filterString };
+  get filterString(): string {
+    return this._filterString;
+  };
+
   set filterString(value: string) {
     this._filterString = value;
     this.onFilterStringChange(value);

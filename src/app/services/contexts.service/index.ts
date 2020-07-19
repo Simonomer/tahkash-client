@@ -7,10 +7,8 @@ export class ContextsService {
   private contexts: Partial<Record<ContextTypes, BehaviorSubject<any>>> = {};
 
   public setCurrentContextValue(contextType: ContextTypes, contextValue: any): void {
-    const isExists = this.ensureHasType(contextType, contextValue);
-    if (isExists) {
-      this.contexts[contextType].next(contextValue);
-    }
+    this.ensureHasType(contextType, contextValue);
+    this.contexts[contextType].next(contextValue);
   }
 
   public getCurrentContextValue<T>(contextType: ContextTypes): T {
@@ -32,7 +30,6 @@ export class ContextsService {
     if (isNotExists) {
       this.contexts[contextType] = new BehaviorSubject(initialValue);
     }
-
     return !isNotExists;
   }
 }

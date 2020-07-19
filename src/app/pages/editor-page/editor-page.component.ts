@@ -13,9 +13,11 @@ import {ActivatedRoute, Router} from '@angular/router';
 export class EditorPageComponent implements OnInit {
 
   private readonly actionToFunction: Record<ActionType, (param: string) => void> =
-    { 'Create': (formName: string) => this.formsManagementService.createForm(formName),
+    {
+      'Create': (formName: string) => this.formsManagementService.createForm(formName),
       'Clicked': (_id: string) => this.router.navigate([_id], {relativeTo: this.activatedRoute}),
-      'Delete': (_id: string) => this.formsManagementService.deleteForm(_id) }
+      'Delete': (_id: string) => this.formsManagementService.deleteForm(_id)
+    };
 
   forms$: Observable<IForm[]>;
 
