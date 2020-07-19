@@ -1,5 +1,12 @@
-.chips-search {
-  width: 90%;
+:host {
+  display: flex;
+}
+
+input {
+  flex: 1;
+  min-height: 30px;
+  border-radius: 30px;
+  outline: none;
 }
 
 .days-back-form-filter {

@@ -2,11 +2,26 @@
   background-color: #222224;
   color: white;
   display: flex;
-  justify-content: space-between;
   flex-direction: column;
-  align-items: flex-end;
+  position: relative;
+  flex: 1;
+}
+
+.search-container {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+
+  search-bar {
+    width: 80%;
+  }
 }
 
 .new-form-button {
+  position: absolute !important;
   margin: 15px;
+  bottom: 0;
+  left: 0;
 }
+
+
