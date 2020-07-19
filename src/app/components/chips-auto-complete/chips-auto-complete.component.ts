@@ -35,8 +35,8 @@ export class ChipsAutoCompleteComponent implements OnInit {
     this.filteredBuckets = this.chipsCtrl.valueChanges.pipe(
       startWith(null),
       map((bucket: string | null) => bucket ? this._filter(bucket) :
-        _difference(this.allBuckets.map(bucket1 => bucket1.name),
-          this.currentBuckets.map(bucket1 => bucket1.name))));
+        _difference(this.allBuckets?.map(bucket1 => bucket1.name),
+          this.currentBuckets?.map(bucket1 => bucket1.name))));
 
     if (this.inputUpdating) {
       this.chipsCtrl.valueChanges.subscribe(value => this.inputUpdating.next(value));

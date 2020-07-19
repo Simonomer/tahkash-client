@@ -48,12 +48,16 @@ export class ConnectionsService {
   }
 
   // Questions
-  addQuestion(formId: string, text: string): Promise<IQuestion> {
-    return this.http.post<IQuestion>(`${environment.serviceUrl}/form/question/${formId}`, {text}).toPromise();
+  addQuestion(bucketId: string, text: string): Promise<IQuestion> {
+    return this.http.post<IQuestion>(`${environment.serviceUrl}/form/question/${bucketId}`, {text}).toPromise();
   }
 
   getFormQuestions(formId: string): Promise<IQuestion[]> {
-    return this.http.get<IQuestion[]>(`${environment.serviceUrl}/form/question/${formId}`).toPromise();
+    return this.http.get<IQuestion[]>(`${environment.serviceUrl}/form/questions/${formId}`).toPromise();
+  }
+
+  getBucketQuestions(bucketId: string): Promise<IQuestion[]> {
+    return this.http.get<IQuestion[]>(`${environment.serviceUrl}/bucket/questions/${bucketId}`).toPromise();
   }
 
   removeQuestion(questionId: string): Promise<IQuestion> {
