@@ -1,0 +1,12 @@
+:host {
+  display: flex;
+  flex: 1;
+}
+
+sidebar {
+  flex: 1;
+}
+
+router-outlet {
+  flex: 3;
+}

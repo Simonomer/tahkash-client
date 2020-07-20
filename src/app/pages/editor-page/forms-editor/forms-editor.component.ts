@@ -8,7 +8,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {ICourseContext} from '../../../models/course-context';
 
 @Component({
-  selector: 'app-forms-editor',
+  selector: 'forms-editor',
   templateUrl: './forms-editor.component.html',
   styleUrls: ['./forms-editor.component.scss']
 })
@@ -37,7 +37,7 @@ export class FormsEditorComponent implements OnInit, OnDestroy {
     this.forms$ = this.formsManagementService.forms$;
   }
 
-  onAction(action: IActionHandler) {
+  onAction(action: IActionHandler): void {
     this.actionToFunction[action.action](action.param);
   }
 
