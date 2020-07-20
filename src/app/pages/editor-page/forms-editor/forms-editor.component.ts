@@ -31,8 +31,8 @@ export class FormsEditorComponent implements OnInit, OnDestroy {
   }
 
   async ngOnInit(): Promise<void> {
-    this.courseContextSubscription = this.courseContextManagementService.courseContext$.subscribe((context: ICourseContext) =>
-      this.formsManagementService.updateFormsFromServer(context));
+    this.courseContextSubscription = this.courseContextManagementService.courseContext$.subscribe(() =>
+      this.formsManagementService.updateFormsFromServer());
     await this.formsManagementService.updateFormsFromServer();
     this.forms$ = this.formsManagementService.forms$;
   }

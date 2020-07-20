@@ -30,7 +30,7 @@ export class TopbarComponent implements OnInit {
   };
 
   set selectedCourse(value: string) {
-    this.courseContextManagementService.courseContext = {...this.courseContextManagementService.courseContext, course: value};
+    this.courseContextManagementService.courseContext = { course: value };
   }
 
   constructor(private courseContextManagementService: CourseContextManagementService,
@@ -38,20 +38,18 @@ export class TopbarComponent implements OnInit {
     this.courseContextManagementService.courseContext = { }
     this.courseContext$ = this.courseContextManagementService.courseContext$;
     this.courseToWeeksDictionary$ = this.courseToWeeksManagementService.courseToWeeksDictionary$;
+  }
 
+  ngOnInit(): void {
     this.courseOptions$ = this.courseToWeeksDictionary$.pipe(map((courseToWeeksDictionary) => {
       return Object.keys(courseToWeeksDictionary || {});
     }));
 
-    this.weekOptions$ = this.courseContextManagementService.courseContext$.pipe(map(() => {
-      if (this.courseContextManagementService.courseContext?.course) {
-        return this.courseToWeeksManagementService.courseToWeeksDictionary[this.courseContextManagementService.courseContext?.course];
+    this.weekOptions$ = this.courseContextManagementService.courseContext$.pipe(map((courseContext) => {
+      if (courseContext?.course) {
+        return this.courseToWeeksManagementService.courseToWeeksDictionary[courseContext?.course];
       }
     }));
-  }
-
-  ngOnInit(): void {
-
   }
 
 }

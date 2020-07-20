@@ -25,8 +25,8 @@ export class FormsManagementService {
     this.forms$ = this.contextsService.watchSelectedContext(ContextTypes.forms);
   }
 
-  public async updateFormsFromServer(query: object = {}): Promise<void> {
-    this.forms = await this.connectionsService.searchForms(query);
+  public async updateFormsFromServer(): Promise<void> {
+    this.forms = await this.connectionsService.searchForms(this.courseContextManagementService.courseContext);
   }
 
   public async deleteForm(formId: string): Promise<void> {

@@ -4,6 +4,7 @@ import {ContextsService} from '../index';
 import {IBucket} from '../../../models/bucket';
 import {ConnectionsService} from '../../connections.service';
 import {ContextTypes} from '../emums';
+import {CourseContextManagementService} from './course-context.management.service';
 
 @Injectable()
 export class BucketsManagementService {
@@ -19,12 +20,13 @@ export class BucketsManagementService {
   }
 
   constructor(private contextsService: ContextsService,
-              private connectionsService: ConnectionsService) {
+              private connectionsService: ConnectionsService,
+              private courseContextManagementService: CourseContextManagementService) {
     this.buckets$ = this.contextsService.watchSelectedContext(ContextTypes.buckets);
   }
 
-  public async updateBucketsFromServer(query: object = {}): Promise<void> {
-    this.buckets = await this.connectionsService.searchBuckets(query);
+  public async updateBucketsFromServer(): Promise<void> {
+    this.buckets = await this.connectionsService.searchBuckets(this.courseContextManagementService.courseContext);
   }
 
   public async deleteBucket(bucketId: string): Promise<void> {

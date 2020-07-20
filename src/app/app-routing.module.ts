@@ -6,6 +6,8 @@ import {FormsEditorComponent} from './pages/editor-page/forms-editor/forms-edito
 import {FormOverviewComponent} from './pages/editor-page/forms-editor/form-overview/form-overview.component';
 import {FormEditorComponent} from './pages/editor-page/forms-editor/form-overview/form-editor/form-editor.component';
 import {FormAnswersComponent} from './pages/editor-page/forms-editor/form-overview/form-answers/form-answers.component';
+import {BucketsEditorComponent} from './pages/editor-page/buckets-editor/buckets-editor.component';
+import {BucketOverviewComponent} from './pages/editor-page/buckets-editor/bucket-overview/bucket-overview.component';
 
 
 const routes: Routes = [
@@ -13,6 +15,11 @@ const routes: Routes = [
     path: 'editor',
     component: EditorPageComponent,
     children: [
+      {
+        path: '',
+        redirectTo: 'buckets',
+        pathMatch: 'full'
+      },
       {
         path: 'forms',
         component: FormsEditorComponent,
@@ -34,6 +41,18 @@ const routes: Routes = [
                 path: 'answers',
                 component: FormAnswersComponent
               }
+            ]
+          }
+        ]
+      },
+      {
+        path: 'buckets',
+        component: BucketsEditorComponent,
+        children: [
+          {
+            path: ':bucketId',
+            component: BucketOverviewComponent,
+            children: [
             ]
           }
         ]

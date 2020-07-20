@@ -1,1 +1,2 @@
-<p>buckets-editor works!</p>
+<sidebar [items]="buckets$ | async" (action)="onAction($event)"></sidebar>
+<router-outlet></router-outlet>
