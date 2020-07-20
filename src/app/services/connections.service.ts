@@ -17,7 +17,6 @@ export class ConnectionsService {
     return this.http.post<IBucket[]>(`${environment.serviceUrl}/buckets/_search`, filters).toPromise();
   }
 
-
   // Forms
   searchForms(filters: object): Promise<IForm[]> {
     return this.http.post<IForm[]>(`${environment.serviceUrl}/forms/_search`, filters).toPromise();

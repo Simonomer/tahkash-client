@@ -1,36 +1,44 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 import {EditorPageComponent} from './pages/editor-page/editor-page.component';
-import {FormOverviewComponent} from './pages/editor-page/form-overview/form-overview.component';
-import {FormEditorComponent} from './pages/editor-page/form-overview/form-editor/form-editor.component';
-import {FormAnswersComponent} from './pages/editor-page/form-overview/form-answers/form-answers.component';
 import {AnswerPageComponent} from './pages/answer-page/answer-page.component';
+import {FormEditorComponent} from './pages/editor-page/forms-editor/form-overview/form-editor/form-editor.component';
+import {FormOverviewComponent} from './pages/editor-page/forms-editor/form-overview/form-overview.component';
+import {FormAnswersComponent} from './pages/editor-page/forms-editor/form-overview/form-answers/form-answers.component';
+import {FormsEditorComponent} from './pages/editor-page/forms-editor/forms-editor.component';
 
 
 const routes: Routes = [
   {
-    path: 'forms',
+    path: 'editor',
     component: EditorPageComponent,
     children: [
       {
-        path: ':formId',
-        component: FormOverviewComponent,
+        path: 'forms',
+        component: FormsEditorComponent,
         children: [
           {
-            path: '',
-            redirectTo: 'edit',
-            pathMatch: 'prefix'
-          },
-          {
-            path: 'edit',
-            component: FormEditorComponent
-          },
-          {
-            path: 'answers',
-            component: FormAnswersComponent
+            path: ':formId',
+            component: FormOverviewComponent,
+            children: [
+              {
+                path: '',
+                redirectTo: 'edit',
+                pathMatch: 'prefix'
+              },
+              {
+                path: 'edit',
+                component: FormEditorComponent
+              },
+              {
+                path: 'answers',
+                component: FormAnswersComponent
+              }
+            ]
           }
         ]
-      }]
+      }
+    ]
   },
   {
     path: 'answer/:formId',
@@ -38,7 +46,7 @@ const routes: Routes = [
   },
   {
     path: '**',
-    redirectTo: '/forms'
+    redirectTo: '/editor'
   }
 ];
 

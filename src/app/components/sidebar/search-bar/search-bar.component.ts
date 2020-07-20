@@ -1,6 +1,6 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
 
-import {IHasIdAndName} from '../../../models/has-name';
+import {IHasIdAndName} from '../../../models/has-name-id';
 
 @Component({
   selector: 'search-bar',

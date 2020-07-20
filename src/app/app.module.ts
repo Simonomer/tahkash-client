@@ -7,7 +7,6 @@ import {AppRoutingModule} from './app-routing.module';
 import {HttpClientModule} from '@angular/common/http';
 import {DragDropModule} from '@angular/cdk/drag-drop';
 import {ConnectionsService} from './services/connections.service';
-import {FormsManagementService} from './services/forms.management.service';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import {MatIconModule} from '@angular/material/icon';
 import {MatTableModule} from '@angular/material/table';
@@ -20,11 +19,8 @@ import {MatCardModule} from '@angular/material/card';
 import {EditorPageComponent} from './pages/editor-page/editor-page.component';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatDialogModule} from '@angular/material/dialog';
-import {FormOverviewComponent} from './pages/editor-page/form-overview/form-overview.component';
 import {SidebarComponent} from './components/sidebar/sidebar.component';
-import {FormEditorComponent} from './pages/editor-page/form-overview/form-editor/form-editor.component';
 import {ItemsManagementTableComponent} from './components/sidebar/items-table/items-management-table.component';
-import {FormAnswersComponent} from './pages/editor-page/form-overview/form-answers/form-answers.component';
 import {NewItemDialogComponent} from './components/sidebar/new-item-dialog/new-item-dialog.component';
 import {AnswerPageComponent} from './pages/answer-page/answer-page.component';
 import {ClipboardModule} from '@angular/cdk/clipboard';
@@ -33,9 +29,18 @@ import {SearchBarComponent} from './components/sidebar/search-bar/search-bar.com
 import {LocalstorageService} from './services/localstorage.service';
 import {MatMenuModule} from '@angular/material/menu';
 import {ChipsAutoCompleteComponent} from './components/chips-auto-complete/chips-auto-complete.component';
-import {BucketsManagementService} from './services/buckets.management.service';
-import {BucketOverviewComponent} from './pages/editor-page/bucket-overview/bucket-overview.component';
 import {ContextsService} from './services/contexts.service';
+import { TopbarComponent } from './components/topbar/topbar.component';
+import {BucketsManagementService} from './services/contexts.service/management.services/buckets.management.service';
+import {CourseContextManagementService} from './services/contexts.service/management.services/course-context.management.service';
+import {FormsManagementService} from './services/contexts.service/management.services/forms.management.service';
+import { BucketsEditorComponent } from './pages/editor-page/buckets-editor/buckets-editor.component';
+import { FormsEditorComponent } from './pages/editor-page/forms-editor/forms-editor.component';
+import {FormEditorComponent} from './pages/editor-page/forms-editor/form-overview/form-editor/form-editor.component';
+import {FormAnswersComponent} from './pages/editor-page/forms-editor/form-overview/form-answers/form-answers.component';
+import {BucketOverviewComponent} from './pages/editor-page/buckets-editor/bucket-overview/bucket-overview.component';
+import {FormOverviewComponent} from './pages/editor-page/forms-editor/form-overview/form-overview.component';
+import {CourseToWeeksManagementService} from './services/contexts.service/management.services/course-to-weeks.management.service';
 
 @NgModule({
   declarations: [
@@ -50,7 +55,10 @@ import {ContextsService} from './services/contexts.service';
     NewItemDialogComponent,
     AnswerPageComponent,
     SearchBarComponent,
-    BucketOverviewComponent
+    BucketOverviewComponent,
+    TopbarComponent,
+    BucketsEditorComponent,
+    FormsEditorComponent
   ],
   imports: [
     BrowserModule,
@@ -80,7 +88,9 @@ import {ContextsService} from './services/contexts.service';
     FormsManagementService,
     LocalstorageService,
     BucketsManagementService,
-    ContextsService
+    ContextsService,
+    CourseContextManagementService,
+    CourseToWeeksManagementService
   ],
   bootstrap: [AppComponent]
 })

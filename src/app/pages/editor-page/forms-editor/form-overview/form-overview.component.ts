@@ -1,10 +1,10 @@
 import {Component, OnInit} from '@angular/core';
-import {IForm} from '../../../models/form';
-import {IBucket} from '../../../models/bucket';
+import {IForm} from '../../../../models/form';
 import {Observable, Subject} from 'rxjs';
-import {ConnectionsService} from '../../../services/connections.service';
+import {IBucket} from '../../../../models/bucket';
+import {ConnectionsService} from '../../../../services/connections.service';
 import {ActivatedRoute, Router} from '@angular/router';
-import {BucketsManagementService} from '../../../services/buckets.management.service';
+import {BucketsManagementService} from '../../../../services/contexts.service/management.services/buckets.management.service';
 
 @Component({
   selector: 'form-overview',

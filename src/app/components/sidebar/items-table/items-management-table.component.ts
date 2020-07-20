@@ -2,10 +2,10 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {Component, EventEmitter, Input, Output} from '@angular/core';
 
 import {ConnectionsService} from '../../../services/connections.service';
-import {FormsManagementService} from '../../../services/forms.management.service';
 import {Clipboard} from '@angular/cdk/clipboard';
-import {IHasIdAndName} from '../../../models/has-name';
+import {IHasIdAndName} from '../../../models/has-name-id';
 import {IActionHandler} from '../interfaces';
+import {FormsManagementService} from '../../../services/contexts.service/management.services/forms.management.service';
 
 @Component({
   selector: 'items-management-table',

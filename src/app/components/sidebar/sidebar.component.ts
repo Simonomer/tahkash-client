@@ -1,7 +1,7 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {NewItemDialogComponent} from './new-item-dialog/new-item-dialog.component';
 import {MatDialog} from '@angular/material/dialog';
-import {IHasIdAndName} from '../../models/has-name';
+import {IHasIdAndName} from '../../models/has-name-id';
 import {IActionHandler} from './interfaces';
 
 @Component({
@@ -39,9 +39,9 @@ export class SidebarComponent {
       width: '250px'
     });
 
-    dialogRef.afterClosed().subscribe(async name => {
-      if (name) {
-        this.action.emit({param: name, action: 'Create'});
+    dialogRef.afterClosed().subscribe(async itemName => {
+      if (itemName) {
+        this.action.emit({param: itemName, action: 'Create'} as IActionHandler);
       }
     });
   }

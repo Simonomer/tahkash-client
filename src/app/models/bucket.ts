@@ -1,4 +1,5 @@
-import {IHasIdAndName} from './has-name';
+import {IHasIdAndName} from './has-name-id';
+import {ICourseContext} from './course-context';
 
-export interface IBucket extends IHasIdAndName {
+export interface IBucket extends IHasIdAndName, ICourseContext {
 }

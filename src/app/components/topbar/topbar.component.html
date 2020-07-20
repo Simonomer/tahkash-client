@@ -1,0 +1,21 @@
+<mat-toolbar class="top-bar">
+  <span>Tahkash!</span>
+
+  <span>
+    מחזור:
+    <select [(ngModel)]="selectedCourse">
+      <option *ngFor="let course of (courseOptions$ | async)" [value]="course">{{ course }}</option>
+    </select>
+  </span>
+
+  <span>
+    שבוע:
+    <select [(ngModel)]="selectedWeek">
+      <option *ngFor="let week of (weekOptions$ | async)" [value]="week">{{ week }}</option>
+    </select>
+  </span>
+
+
+</mat-toolbar>
+
+

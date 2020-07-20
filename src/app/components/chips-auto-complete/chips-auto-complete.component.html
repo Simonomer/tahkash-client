@@ -1,5 +1,5 @@
 <mat-form-field class="chips-input">
-  <mat-chip-list #dataList aria-label="Data selection">
+  <mat-chip-list class="mat-chip-list-wrapper" #dataList aria-label="Data selection">
     <mat-chip
       *ngFor="let bucket of currentBuckets"
       [removable]="removable"

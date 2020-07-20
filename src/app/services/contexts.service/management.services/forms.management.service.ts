@@ -1,9 +1,10 @@
 import {Injectable} from '@angular/core';
-import {ConnectionsService} from './connections.service';
-import {IForm} from '../models/form';
 import {Observable} from 'rxjs';
-import {ContextTypes} from './contexts.service/emums';
-import {ContextsService} from './contexts.service';
+import {CourseContextManagementService} from './course-context.management.service';
+import {ContextsService} from '../index';
+import {ConnectionsService} from '../../connections.service';
+import {ContextTypes} from '../emums';
+import {IForm} from '../../../models/form';
 
 @Injectable()
 export class FormsManagementService {
@@ -19,12 +20,13 @@ export class FormsManagementService {
   }
 
   constructor(private contextsService: ContextsService,
+              private courseContextManagementService: CourseContextManagementService,
               private connectionsService: ConnectionsService) {
     this.forms$ = this.contextsService.watchSelectedContext(ContextTypes.forms);
   }
 
-  public async updateFormsFromServer(): Promise<void> {
-    this.forms = await this.connectionsService.getAllForms();
+  public async updateFormsFromServer(query: object = {}): Promise<void> {
+    this.forms = await this.connectionsService.searchForms(query);
   }
 
   public async deleteForm(formId: string): Promise<void> {
