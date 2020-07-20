@@ -1,12 +1,8 @@
 :host {
   display: flex;
-  flex: 1;
+  flex: 4;
 }
 
 sidebar {
   flex: 1;
-}
-
-router-outlet {
-  flex: 3;
 }

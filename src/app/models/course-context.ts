@@ -1,6 +1,6 @@
 export interface ICourseContext {
-  course: string;
-  week: string;
+  course?: string;
+  week?: string;
 }
 
 export type CourseToWeeksDictionary = {[course: string]: string[]}

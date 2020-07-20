@@ -2,10 +2,10 @@ import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 import {EditorPageComponent} from './pages/editor-page/editor-page.component';
 import {AnswerPageComponent} from './pages/answer-page/answer-page.component';
-import {FormEditorComponent} from './pages/editor-page/forms-editor/form-overview/form-editor/form-editor.component';
-import {FormOverviewComponent} from './pages/editor-page/forms-editor/form-overview/form-overview.component';
-import {FormAnswersComponent} from './pages/editor-page/forms-editor/form-overview/form-answers/form-answers.component';
 import {FormsEditorComponent} from './pages/editor-page/forms-editor/forms-editor.component';
+import {FormOverviewComponent} from './pages/editor-page/forms-editor/form-overview/form-overview.component';
+import {FormEditorComponent} from './pages/editor-page/forms-editor/form-overview/form-editor/form-editor.component';
+import {FormAnswersComponent} from './pages/editor-page/forms-editor/form-overview/form-answers/form-answers.component';
 
 
 const routes: Routes = [

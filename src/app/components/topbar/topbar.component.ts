@@ -35,16 +35,20 @@ export class TopbarComponent implements OnInit {
 
   constructor(private courseContextManagementService: CourseContextManagementService,
               private courseToWeeksManagementService: CourseToWeeksManagementService) {
-    this.courseContextManagementService.courseContext = { course: '', week: '' }
+    this.courseContextManagementService.courseContext = { }
     this.courseContext$ = this.courseContextManagementService.courseContext$;
     this.courseToWeeksDictionary$ = this.courseToWeeksManagementService.courseToWeeksDictionary$;
 
-    this.weekOptions$ = this.courseToWeeksDictionary$.pipe(map((courseToWeeksDictionary) => {
-      return courseToWeeksDictionary[this.courseContextManagementService.courseContext.course];
+    this.courseOptions$ = this.courseToWeeksDictionary$.pipe(map((courseToWeeksDictionary) => {
+      if (courseToWeeksDictionary) {
+        return Object.keys(courseToWeeksDictionary);
+      }
     }));
 
-    this.courseOptions$ = this.courseToWeeksDictionary$.pipe(map((courseToWeeksDictionary) => {
-      return Object.keys(courseToWeeksDictionary);
+    this.weekOptions$ = this.courseContextManagementService.courseContext$.pipe(map(() => {
+      if (this.courseContextManagementService.courseContext?.course) {
+        return this.courseToWeeksManagementService.courseToWeeksDictionary[this.courseContextManagementService.courseContext?.course];
+      }
     }));
   }
 
