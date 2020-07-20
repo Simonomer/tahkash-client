@@ -41,6 +41,7 @@ import {FormAnswersComponent} from './pages/editor-page/forms-editor/form-overvi
 import {BucketOverviewComponent} from './pages/editor-page/buckets-editor/bucket-overview/bucket-overview.component';
 import {FormOverviewComponent} from './pages/editor-page/forms-editor/form-overview/form-overview.component';
 import {CourseToWeeksManagementService} from './services/contexts.service/management.services/course-to-weeks.management.service';
+import { BucketEditorComponent } from './pages/editor-page/buckets-editor/bucket-overview/bucket-editor/bucket-editor.component';
 
 @NgModule({
   declarations: [
@@ -58,7 +59,8 @@ import {CourseToWeeksManagementService} from './services/contexts.service/manage
     BucketOverviewComponent,
     TopbarComponent,
     BucketsEditorComponent,
-    FormsEditorComponent
+    FormsEditorComponent,
+    BucketEditorComponent
   ],
   imports: [
     BrowserModule,

@@ -34,23 +34,6 @@ export class FormEditorComponent implements OnInit {
     this.questions = _orderBy(questions, question => question.priority);
   }
 
-  async onDeleteClick(questionClicked: IQuestion): Promise<void> {
-    await this.connectionsService.removeQuestion(questionClicked._id);
-    await this.updateQuestions();
-  }
-
-  async createQuestion(text: string): Promise<void> {
-    await this.connectionsService.addQuestion(this.formId, text);
-    await this.updateQuestions();
-    this.inputElem.nativeElement.value = '';
-  }
-
-  async drop(event: CdkDragDrop<string[]>): Promise<void> {
-    moveItemInArray(this.questions, event.previousIndex, event.currentIndex);
-    await this.connectionsService.modifyQuestions(this.questions);
-    await this.updateQuestions();
-  }
-
   goToPreview(): void {
     this.router.navigate(['answer', this.formId]);
   }

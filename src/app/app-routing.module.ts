@@ -8,6 +8,7 @@ import {FormEditorComponent} from './pages/editor-page/forms-editor/form-overvie
 import {FormAnswersComponent} from './pages/editor-page/forms-editor/form-overview/form-answers/form-answers.component';
 import {BucketsEditorComponent} from './pages/editor-page/buckets-editor/buckets-editor.component';
 import {BucketOverviewComponent} from './pages/editor-page/buckets-editor/bucket-overview/bucket-overview.component';
+import {BucketEditorComponent} from './pages/editor-page/buckets-editor/bucket-overview/bucket-editor/bucket-editor.component';
 
 
 const routes: Routes = [
@@ -53,6 +54,15 @@ const routes: Routes = [
             path: ':bucketId',
             component: BucketOverviewComponent,
             children: [
+              {
+                path: '',
+                redirectTo: 'edit',
+                pathMatch: 'prefix'
+              },
+              {
+                path: 'edit',
+                component: BucketEditorComponent
+              }
             ]
           }
         ]
