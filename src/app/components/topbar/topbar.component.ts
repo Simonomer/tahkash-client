@@ -40,9 +40,7 @@ export class TopbarComponent implements OnInit {
     this.courseToWeeksDictionary$ = this.courseToWeeksManagementService.courseToWeeksDictionary$;
 
     this.courseOptions$ = this.courseToWeeksDictionary$.pipe(map((courseToWeeksDictionary) => {
-      if (courseToWeeksDictionary) {
-        return Object.keys(courseToWeeksDictionary);
-      }
+      return Object.keys(courseToWeeksDictionary || {});
     }));
 
     this.weekOptions$ = this.courseContextManagementService.courseContext$.pipe(map(() => {
