@@ -5,6 +5,10 @@
 $app-primary: mat-palette($mat-blue);
 $app-accent: mat-palette($mat-gray);
 
+$my-theme: mat-dark-theme($app-primary, $app-accent);
+
+@include angular-material-theme($my-theme);
+
 html, body, app-root {
   margin: 0;
   padding: 0;
