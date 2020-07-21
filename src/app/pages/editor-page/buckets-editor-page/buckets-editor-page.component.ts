@@ -8,10 +8,10 @@ import {ActivatedRoute, Router} from '@angular/router';
 
 @Component({
   selector: 'app-buckets-editor',
-  templateUrl: './buckets-editor.component.html',
-  styleUrls: ['./buckets-editor.component.scss']
+  templateUrl: './buckets-editor-page.component.html',
+  styleUrls: ['./buckets-editor-page.component.scss']
 })
-export class BucketsEditorComponent implements OnInit {
+export class BucketsEditorPageComponent implements OnInit {
 
   private readonly actionToFunction: Record<ActionType, (param: string) => void> =
     {

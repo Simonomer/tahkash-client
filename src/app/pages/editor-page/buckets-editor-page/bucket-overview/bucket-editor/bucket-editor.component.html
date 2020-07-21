@@ -10,9 +10,9 @@
 </div>
 
 <div cdkDropList class="question-list" (cdkDropListDropped)="drop($event)">
-  <mat-card class="question-item" *ngFor="let question of questions" cdkDrag>
+  <mat-card class="question-item" *ngFor="let question of (questions$ | async)" cdkDrag>
     <span>{{question.text}}</span>
-    <button mat-icon-button color="primary" (click)="onDeleteClick(question)" aria-label="remove a question">
+    <button mat-icon-button color="primary" (click)="onDeleteClick(question._id)" aria-label="remove a question">
       <mat-icon>cancel</mat-icon>
     </button>
   </mat-card>

@@ -34,14 +34,15 @@ import {TopbarComponent} from './components/topbar/topbar.component';
 import {BucketsManagementService} from './services/contexts.service/management.services/buckets.management.service';
 import {CourseContextManagementService} from './services/contexts.service/management.services/course-context.management.service';
 import {FormsManagementService} from './services/contexts.service/management.services/forms.management.service';
-import {BucketsEditorComponent} from './pages/editor-page/buckets-editor/buckets-editor.component';
-import {FormsEditorComponent} from './pages/editor-page/forms-editor/forms-editor.component';
-import {FormEditorComponent} from './pages/editor-page/forms-editor/form-overview/form-editor/form-editor.component';
-import {FormAnswersComponent} from './pages/editor-page/forms-editor/form-overview/form-answers/form-answers.component';
-import {BucketOverviewComponent} from './pages/editor-page/buckets-editor/bucket-overview/bucket-overview.component';
-import {FormOverviewComponent} from './pages/editor-page/forms-editor/form-overview/form-overview.component';
 import {CourseToWeeksManagementService} from './services/contexts.service/management.services/course-to-weeks.management.service';
-import { BucketEditorComponent } from './pages/editor-page/buckets-editor/bucket-overview/bucket-editor/bucket-editor.component';
+import {QuestionsManagementService} from './services/contexts.service/management.services/questions.management.service';
+import {BucketsEditorPageComponent} from './pages/editor-page/buckets-editor-page/buckets-editor-page.component';
+import {BucketEditorComponent} from './pages/editor-page/buckets-editor-page/bucket-overview/bucket-editor/bucket-editor.component';
+import {FormEditorComponent} from './pages/editor-page/forms-editor-page/form-overview/form-editor/form-editor.component';
+import {FormsEditorPageComponent} from './pages/editor-page/forms-editor-page/forms-editor-page.component';
+import {FormOverviewComponent} from './pages/editor-page/forms-editor-page/form-overview/form-overview.component';
+import {FormAnswersComponent} from './pages/editor-page/forms-editor-page/form-overview/form-answers/form-answers.component';
+import {BucketOverviewComponent} from './pages/editor-page/buckets-editor-page/bucket-overview/bucket-overview.component';
 
 @NgModule({
   declarations: [
@@ -58,8 +59,8 @@ import { BucketEditorComponent } from './pages/editor-page/buckets-editor/bucket
     SearchBarComponent,
     BucketOverviewComponent,
     TopbarComponent,
-    BucketsEditorComponent,
-    FormsEditorComponent,
+    BucketsEditorPageComponent,
+    FormsEditorPageComponent,
     BucketEditorComponent
   ],
   imports: [
@@ -92,7 +93,8 @@ import { BucketEditorComponent } from './pages/editor-page/buckets-editor/bucket
     BucketsManagementService,
     ContextsService,
     CourseContextManagementService,
-    CourseToWeeksManagementService
+    CourseToWeeksManagementService,
+    QuestionsManagementService
   ],
   bootstrap: [AppComponent]
 })

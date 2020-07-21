@@ -35,7 +35,7 @@ export class ConnectionsService {
   }
 
   modifyForm(form: IForm): Promise<IForm> {
-    return this.http.put<IForm>(`${environment.serviceUrl}/form`, {...form, buckets: form.buckets.map(bucket => bucket._id)}).toPromise();
+    return this.http.put<IForm>(`${environment.serviceUrl}/form`, {...form, bucketIds: form.buckets.map(bucket => bucket._id)}).toPromise();
   }
 
   duplicateForm(formId: string): Promise<IForm> {
@@ -47,8 +47,12 @@ export class ConnectionsService {
   }
 
   // Questions
-  addQuestion(bucketId: string, text: string): Promise<IQuestion> {
-    return this.http.post<IQuestion>(`${environment.serviceUrl}/form/question/${bucketId}`, {text}).toPromise();
+  addQuestionForBucket(bucketId: string, text: string): Promise<IQuestion> {
+    return this.http.post<IQuestion>(`${environment.serviceUrl}/bucket/question/${bucketId}`, {text}).toPromise();
+  }
+
+  addQuestionForForm(formId: string, text: string): Promise<IQuestion> {
+    return this.http.post<IQuestion>(`${environment.serviceUrl}/form/question/${formId}`, {text}).toPromise();
   }
 
   getFormQuestions(formId: string): Promise<IQuestion[]> {

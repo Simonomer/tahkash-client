@@ -1,0 +1,21 @@
+<button mat-button color="primary" (click)="goToPreview()" aria-label="go to preview">Preview</button>
+
+<div>
+  <mat-form-field>
+    <mat-label>New question:</mat-label>
+    <input matInput type="text" #inputValue (keydown.enter)="onQuestionAdd(inputValue.value)">
+    <button mat-button *ngIf="inputValue.value" matSuffix mat-icon-button aria-label="Clear"
+            (click)="inputValue.value=''">
+      <mat-icon>cancel</mat-icon>
+    </button>
+  </mat-form-field>
+</div>
+
+<div cdkDropList class="question-list" (cdkDropListDropped)="drop($event)">
+  <mat-card class="question-item" *ngFor="let question of (questions$ | async)" cdkDrag [cdkDragDisabled]="!question.formId">
+    <span>{{question.text}}</span>
+    <button mat-icon-button color="primary" *ngIf="question.formId" (click)="onDeleteClick(question._id)" aria-label="remove a question">
+      <mat-icon>cancel</mat-icon>
+    </button>
+  </mat-card>
+</div>

@@ -5,6 +5,7 @@ import {IBucket} from '../../../../models/bucket';
 import {ConnectionsService} from '../../../../services/connections.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {BucketsManagementService} from '../../../../services/contexts.service/management.services/buckets.management.service';
+import {QuestionsManagementService} from '../../../../services/contexts.service/management.services/questions.management.service';
 
 @Component({
   selector: 'form-overview',
@@ -24,33 +25,34 @@ export class FormOverviewComponent implements OnInit {
     private connectionsService: ConnectionsService,
     private route: ActivatedRoute,
     private router: Router,
-    private bucketsManagementService: BucketsManagementService) {
+    private bucketsManagementService: BucketsManagementService,
+    private questionsManagementService: QuestionsManagementService) {
   }
 
-  ngOnInit(): void {
+  async ngOnInit(): Promise<void> {
     this.bucketAdded = new Subject<string>();
     this.bucketRemoved = new Subject<string>();
     this.buckets$ = this.bucketsManagementService.buckets$;
+    await this.bucketsManagementService.updateBucketsFromServer();
 
     this.route.paramMap.subscribe(async paramsMap => {
       this.formId = paramsMap.get('formId');
-      const form = await this.connectionsService.getForm(this.formId);
-      this.currentForm = form;
+      this.currentForm = await this.connectionsService.getForm(this.formId);
     });
 
     this.bucketAdded.subscribe(async bucketId => {
       if (!this.currentForm.buckets.find(bucket => bucket._id === bucketId)) {
         const bucket = this.bucketsManagementService.buckets.find(currentBucket => currentBucket._id === bucketId);
         this.currentForm.buckets.push(bucket);
-        const form = await this.connectionsService.modifyForm(this.currentForm);
-        this.currentForm = form;
+        this.currentForm = await this.connectionsService.modifyForm(this.currentForm);
+        await this.questionsManagementService.updateFormQuestionsFromServer(this.formId);
       }
     });
 
     this.bucketRemoved.subscribe(async bucketId => {
       this.currentForm.buckets = this.currentForm.buckets.filter(bucket => bucket._id !== bucketId);
-      const form = await this.connectionsService.modifyForm(this.currentForm);
-      this.currentForm = form;
+      this.currentForm = await this.connectionsService.modifyForm(this.currentForm);
+      await this.questionsManagementService.updateFormQuestionsFromServer(this.formId);
     });
   }
 

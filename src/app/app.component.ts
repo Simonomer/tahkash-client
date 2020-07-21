@@ -1,7 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {IBucket} from './models/bucket';
-import {chain as _chain} from 'lodash';
-import {BucketsManagementService} from './services/contexts.service/management.services/buckets.management.service';
+import {chain as _chain, isEqual as _isEqual} from 'lodash';
 import {CourseToWeeksManagementService} from './services/contexts.service/management.services/course-to-weeks.management.service';
 import {ConnectionsService} from './services/connections.service';
 
@@ -19,7 +17,7 @@ export class AppComponent implements OnInit {
     const buckets = await this.connectionsService.getBuckets();
     const allCourseContext = buckets?.map((courseContext) => ({course: courseContext.course, week: courseContext.week}));
     this.courseToWeeksManagementService.courseToWeeksDictionary = _chain(allCourseContext)
-      .uniq()
+      .uniqWith(_isEqual)
       .groupBy('course')
       .mapValues(v => v.map(obj => obj.week))
       .omit(undefined)

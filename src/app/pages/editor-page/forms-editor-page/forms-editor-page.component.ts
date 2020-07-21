@@ -9,10 +9,10 @@ import {ICourseContext} from '../../../models/course-context';
 
 @Component({
   selector: 'forms-editor',
-  templateUrl: './forms-editor.component.html',
-  styleUrls: ['./forms-editor.component.scss']
+  templateUrl: './forms-editor-page.component.html',
+  styleUrls: ['./forms-editor-page.component.scss']
 })
-export class FormsEditorComponent implements OnInit, OnDestroy {
+export class FormsEditorPageComponent implements OnInit, OnDestroy {
 
   private readonly actionToFunction: Record<ActionType, (param: string) => void> =
     {

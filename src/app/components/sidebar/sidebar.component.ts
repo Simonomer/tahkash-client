@@ -17,6 +17,7 @@ export class SidebarComponent {
   }
 
   @Input() set items(value: IHasIdAndName[]) {
+    this._items = null; // so the search bar catches the change
     this._items = value;
   }
 

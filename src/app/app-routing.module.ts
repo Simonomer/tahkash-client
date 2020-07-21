@@ -2,13 +2,13 @@ import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 import {EditorPageComponent} from './pages/editor-page/editor-page.component';
 import {AnswerPageComponent} from './pages/answer-page/answer-page.component';
-import {FormsEditorComponent} from './pages/editor-page/forms-editor/forms-editor.component';
-import {FormOverviewComponent} from './pages/editor-page/forms-editor/form-overview/form-overview.component';
-import {FormEditorComponent} from './pages/editor-page/forms-editor/form-overview/form-editor/form-editor.component';
-import {FormAnswersComponent} from './pages/editor-page/forms-editor/form-overview/form-answers/form-answers.component';
-import {BucketsEditorComponent} from './pages/editor-page/buckets-editor/buckets-editor.component';
-import {BucketOverviewComponent} from './pages/editor-page/buckets-editor/bucket-overview/bucket-overview.component';
-import {BucketEditorComponent} from './pages/editor-page/buckets-editor/bucket-overview/bucket-editor/bucket-editor.component';
+import {BucketsEditorPageComponent} from './pages/editor-page/buckets-editor-page/buckets-editor-page.component';
+import {BucketEditorComponent} from './pages/editor-page/buckets-editor-page/bucket-overview/bucket-editor/bucket-editor.component';
+import {FormsEditorPageComponent} from './pages/editor-page/forms-editor-page/forms-editor-page.component';
+import {FormEditorComponent} from './pages/editor-page/forms-editor-page/form-overview/form-editor/form-editor.component';
+import {FormOverviewComponent} from './pages/editor-page/forms-editor-page/form-overview/form-overview.component';
+import {FormAnswersComponent} from './pages/editor-page/forms-editor-page/form-overview/form-answers/form-answers.component';
+import {BucketOverviewComponent} from './pages/editor-page/buckets-editor-page/bucket-overview/bucket-overview.component';
 
 
 const routes: Routes = [
@@ -23,7 +23,7 @@ const routes: Routes = [
       },
       {
         path: 'forms',
-        component: FormsEditorComponent,
+        component: FormsEditorPageComponent,
         children: [
           {
             path: ':formId',
@@ -48,7 +48,7 @@ const routes: Routes = [
       },
       {
         path: 'buckets',
-        component: BucketsEditorComponent,
+        component: BucketsEditorPageComponent,
         children: [
           {
             path: ':bucketId',

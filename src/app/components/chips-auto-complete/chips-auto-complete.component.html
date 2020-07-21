@@ -4,7 +4,7 @@
       *ngFor="let bucket of currentBuckets"
       [removable]="removable"
       (removed)="remove(bucket._id)">
-      {{bucket._id}}
+      {{bucket.name}}
       <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
     </mat-chip>
     <input
