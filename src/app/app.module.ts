@@ -43,6 +43,7 @@ import {FormsEditorPageComponent} from './pages/editor-page/forms-editor-page/fo
 import {FormOverviewComponent} from './pages/editor-page/forms-editor-page/form-overview/form-overview.component';
 import {FormAnswersComponent} from './pages/editor-page/forms-editor-page/form-overview/form-answers/form-answers.component';
 import {BucketOverviewComponent} from './pages/editor-page/buckets-editor-page/bucket-overview/bucket-overview.component';
+import {MatSelectModule} from '@angular/material/select';
 
 @NgModule({
   declarations: [
@@ -84,7 +85,8 @@ import {BucketOverviewComponent} from './pages/editor-page/buckets-editor-page/b
     FormsModule,
     ClipboardModule,
     MatRadioModule,
-    MatMenuModule
+    MatMenuModule,
+    MatSelectModule
   ],
   providers: [
     ConnectionsService,
