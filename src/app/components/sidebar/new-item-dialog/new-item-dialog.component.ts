@@ -24,7 +24,7 @@ export class NewItemDialogComponent implements OnInit {
   }
 
   onCloseClick(): void {
-    this.dialogRef.close({});
+    this.dialogRef.close(undefined);
   }
 
   closeDialog() {

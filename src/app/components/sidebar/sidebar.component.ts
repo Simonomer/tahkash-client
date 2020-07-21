@@ -41,12 +41,14 @@ export class SidebarComponent {
     });
 
     dialogRef.afterClosed().subscribe((data: {name: string, course: string, week: string}) => {
-      this.action.emit({params: {
-        name: data.name,
-          courseContext: {
-          course: data.course
-            , week: data.week
-        }}, action: 'Create'} as IActionHandler);
+      if (data) {
+        this.action.emit({params: {
+          name: data.name,
+            courseContext: {
+            course: data.course
+              , week: data.week
+          }}, action: 'Create'} as IActionHandler);
+      }
     });
   }
 }
