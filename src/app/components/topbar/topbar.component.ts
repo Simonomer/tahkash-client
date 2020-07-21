@@ -1,9 +1,11 @@
-import {Observable} from 'rxjs';
+import {merge, Observable, zip} from 'rxjs';
 import {Component, OnInit} from '@angular/core';
 import {CourseToWeeksDictionary, ICourseContext} from '../../models/course-context';
 import {CourseContextManagementService} from '../../services/contexts.service/management.services/course-context.management.service';
 import {CourseToWeeksManagementService} from '../../services/contexts.service/management.services/course-to-weeks.management.service';
-import {map} from 'rxjs/operators';
+import {map, combineAll, combineLatest} from 'rxjs/operators';
+import {Router} from '@angular/router';
+import {LocalstorageService} from '../../services/localstorage.service';
 
 @Component({
   selector: 'topbar',
@@ -34,8 +36,10 @@ export class TopbarComponent implements OnInit {
   }
 
   constructor(private courseContextManagementService: CourseContextManagementService,
-              private courseToWeeksManagementService: CourseToWeeksManagementService) {
-    this.courseContextManagementService.courseContext = { }
+              private courseToWeeksManagementService: CourseToWeeksManagementService,
+              private router: Router,
+              private localstorageService: LocalstorageService) {
+    this.courseContextManagementService.courseContext = localstorageService.getByKey(this.localstorageService.COURSE_CONTEXT) || { };
     this.courseContext$ = this.courseContextManagementService.courseContext$;
     this.courseToWeeksDictionary$ = this.courseToWeeksManagementService.courseToWeeksDictionary$;
   }
@@ -45,11 +49,16 @@ export class TopbarComponent implements OnInit {
       return Object.keys(courseToWeeksDictionary || {});
     }));
 
-    this.weekOptions$ = this.courseContextManagementService.courseContext$.pipe(map((courseContext) => {
-      if (courseContext?.course) {
-        return this.courseToWeeksManagementService.courseToWeeksDictionary[courseContext?.course];
+    this.weekOptions$ = merge(this.courseContextManagementService.courseContext$, this.courseToWeeksDictionary$).pipe(map(() => {
+      const courseContext = this.courseContextManagementService.courseContext;
+      if (courseContext?.course && this.courseToWeeksManagementService.courseToWeeksDictionary) {
+        return this.courseToWeeksManagementService.courseToWeeksDictionary[courseContext.course];
       }
     }));
+  }
+
+  navigateTo(to: string) {
+    this.router.navigate(['editor', to])
   }
 
 }
