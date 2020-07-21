@@ -5,6 +5,7 @@ import {ContextsService} from '../index';
 import {ConnectionsService} from '../../connections.service';
 import {ContextTypes} from '../emums';
 import {IForm} from '../../../models/form';
+import {ICourseContext} from '../../../models/course-context';
 
 @Injectable()
 export class FormsManagementService {
@@ -34,8 +35,8 @@ export class FormsManagementService {
     await this.updateFormsFromServer();
   }
 
-  async createForm(name: string): Promise<void> {
-    await this.connectionsService.createForm(name);
+  async createForm(name: string, courseContext: ICourseContext): Promise<void> {
+    await this.connectionsService.createForm({...courseContext, name} as IForm);
     await this.updateFormsFromServer();
   }
 

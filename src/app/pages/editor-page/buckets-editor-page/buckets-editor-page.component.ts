@@ -5,6 +5,7 @@ import {BucketsManagementService} from '../../../services/contexts.service/manag
 import {CourseContextManagementService} from '../../../services/contexts.service/management.services/course-context.management.service';
 import {ActionType, IActionHandler} from '../../../components/sidebar/interfaces';
 import {ActivatedRoute, Router} from '@angular/router';
+import {ICourseContext} from '../../../models/course-context';
 
 @Component({
   selector: 'app-buckets-editor',
@@ -13,9 +14,9 @@ import {ActivatedRoute, Router} from '@angular/router';
 })
 export class BucketsEditorPageComponent implements OnInit {
 
-  private readonly actionToFunction: Record<ActionType, (param: string) => void> =
+  private readonly actionToFunction: Record<ActionType, (params: { }) => void> =
     {
-      'Create': (bucketName: string) => this.bucketsManagementService.createBucket(bucketName),
+      'Create': (params: { name: string, courseContext: ICourseContext }) => this.bucketsManagementService.createBucket(params.name, params.courseContext),
       'Clicked': (_id: string) => this.router.navigate([_id], {relativeTo: this.activatedRoute}),
       'Delete': (_id: string) => this.bucketsManagementService.deleteBucket(_id)
     };
@@ -36,7 +37,7 @@ export class BucketsEditorPageComponent implements OnInit {
   }
 
   onAction(action: IActionHandler): void {
-    this.actionToFunction[action.action](action.param);
+    this.actionToFunction[action.action](action.params);
   }
 
   ngOnDestroy(): void {

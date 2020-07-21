@@ -22,8 +22,8 @@ export class ConnectionsService {
     return this.http.post<IForm[]>(`${environment.serviceUrl}/forms/_search`, filters).toPromise();
   }
 
-  createForm(formName: string): Promise<IForm> {
-    return this.http.post<IForm>(`${environment.serviceUrl}/form`, {name: formName}).toPromise();
+  createForm(form: IForm): Promise<IForm> {
+    return this.http.post<IForm>(`${environment.serviceUrl}/form`, {...form}).toPromise();
   }
 
   getAllForms(): Promise<IForm[]> {
@@ -77,8 +77,8 @@ export class ConnectionsService {
     return this.http.delete(`${environment.serviceUrl}/bucket/${bucketId}`).toPromise();
   }
 
-  addBucket(name: string): Promise<IBucket> {
-    return this.http.post<IBucket>(`${environment.serviceUrl}/bucket`, {name}).toPromise();
+  addBucket(bucket: IBucket): Promise<IBucket> {
+    return this.http.post<IBucket>(`${environment.serviceUrl}/bucket`, {...bucket}).toPromise();
   }
 
   getBuckets(): Promise<IBucket[]> {

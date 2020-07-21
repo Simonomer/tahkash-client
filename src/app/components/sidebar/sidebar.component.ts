@@ -40,10 +40,13 @@ export class SidebarComponent {
       width: '250px'
     });
 
-    dialogRef.afterClosed().subscribe(async itemName => {
-      if (itemName) {
-        this.action.emit({param: itemName, action: 'Create'} as IActionHandler);
-      }
+    dialogRef.afterClosed().subscribe((data: {name: string, course: string, week: string}) => {
+      this.action.emit({params: {
+        name: data.name,
+          courseContext: {
+          course: data.course
+            , week: data.week
+        }}, action: 'Create'} as IActionHandler);
     });
   }
 }

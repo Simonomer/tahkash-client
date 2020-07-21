@@ -1,5 +1,5 @@
 export interface IActionHandler {
-  param: string;
+  params: { };
   action: ActionType;
 }
 

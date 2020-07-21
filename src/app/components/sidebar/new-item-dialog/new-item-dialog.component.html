@@ -1,11 +1,22 @@
-<div mat-dialog-content>
-  <p>Form name?</p>
+<form mat-dialog-content [formGroup]="form">
   <mat-form-field>
-    <mat-label>Form name:</mat-label>
-    <input matInput [(ngModel)]="itemName">
+    <mat-label>Name:</mat-label>
+    <input matInput formControlName="name" required>
+    <div></div>
   </mat-form-field>
-</div>
+
+  <mat-form-field>
+    <mat-label>Course:</mat-label>
+    <input matInput type="text" formControlName="course" required>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Week:</mat-label>
+    <input matInput formControlName="week" required>
+  </mat-form-field>
+</form>
+
 <div mat-dialog-actions>
   <button mat-button (click)="onCloseClick()">Close</button>
-  <button mat-button [mat-dialog-close]="itemName" cdkFocusInitial>Ok</button>
+  <button mat-button [disabled]="!form.valid" (click)="closeDialog()" cdkFocusInitial>Ok</button>
 </div>

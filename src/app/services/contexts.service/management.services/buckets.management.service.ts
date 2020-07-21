@@ -5,6 +5,7 @@ import {IBucket} from '../../../models/bucket';
 import {ConnectionsService} from '../../connections.service';
 import {ContextTypes} from '../emums';
 import {CourseContextManagementService} from './course-context.management.service';
+import {ICourseContext} from '../../../models/course-context';
 
 @Injectable()
 export class BucketsManagementService {
@@ -34,8 +35,8 @@ export class BucketsManagementService {
     await this.updateBucketsFromServer();
   }
 
-  async createBucket(name: string): Promise<void> {
-    await this.connectionsService.addBucket(name);
+  async createBucket(name: string, courseContext: ICourseContext): Promise<void> {
+    await this.connectionsService.addBucket({...courseContext, name} as IBucket);
     await this.updateBucketsFromServer();
   }
 }

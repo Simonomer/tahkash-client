@@ -14,9 +14,9 @@ import {ICourseContext} from '../../../models/course-context';
 })
 export class FormsEditorPageComponent implements OnInit, OnDestroy {
 
-  private readonly actionToFunction: Record<ActionType, (param: string) => void> =
+  private readonly actionToFunction: Record<ActionType, (params: { }) => void> =
     {
-      'Create': (formName: string) => this.formsManagementService.createForm(formName),
+      'Create': (form: { name: string, courseContext: ICourseContext }) => this.formsManagementService.createForm(form.name, form.courseContext),
       'Clicked': (_id: string) => this.router.navigate([_id], {relativeTo: this.activatedRoute}),
       'Delete': (_id: string) => this.formsManagementService.deleteForm(_id)
     };
@@ -38,7 +38,7 @@ export class FormsEditorPageComponent implements OnInit, OnDestroy {
   }
 
   onAction(action: IActionHandler): void {
-    this.actionToFunction[action.action](action.param);
+    this.actionToFunction[action.action](action.params);
   }
 
   ngOnDestroy(): void {

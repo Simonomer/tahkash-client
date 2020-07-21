@@ -24,11 +24,11 @@ export class ItemsManagementTableComponent {
               private clipboard: Clipboard) { }
 
   formClicked(id: string): void {
-    this.action.emit( { param: id, action: 'Clicked' })
+    this.action.emit( { params: id, action: 'Clicked' })
   }
 
   async onDeleteFormClick(id: string): Promise<void> {
-    this.action.emit({ param: id, action: 'Delete' });
+    this.action.emit({ params: id, action: 'Delete' });
   }
 
   copyToClipboardAnswerUrl(formId: string): void {
