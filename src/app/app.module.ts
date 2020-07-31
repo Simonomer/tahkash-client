@@ -43,6 +43,10 @@ import {FormsEditorPageComponent} from './pages/editor-page/forms-editor-page/fo
 import {FormOverviewComponent} from './pages/editor-page/forms-editor-page/form-overview/form-overview.component';
 import {FormAnswersComponent} from './pages/editor-page/forms-editor-page/form-overview/form-answers/form-answers.component';
 import {BucketOverviewComponent} from './pages/editor-page/buckets-editor-page/bucket-overview/bucket-overview.component';
+import {QuestionsDaysEditorComponent} from './components/questions-days-editor/questions-days-editor.component';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import {MatNativeDateModule} from '@angular/material/core';
+
 
 @NgModule({
   declarations: [
@@ -61,7 +65,8 @@ import {BucketOverviewComponent} from './pages/editor-page/buckets-editor-page/b
     TopbarComponent,
     BucketsEditorPageComponent,
     FormsEditorPageComponent,
-    BucketEditorComponent
+    BucketEditorComponent,
+    QuestionsDaysEditorComponent
   ],
   imports: [
     BrowserModule,
@@ -84,7 +89,9 @@ import {BucketOverviewComponent} from './pages/editor-page/buckets-editor-page/b
     FormsModule,
     ClipboardModule,
     MatRadioModule,
-    MatMenuModule
+    MatMenuModule,
+    MatDatepickerModule,
+    MatNativeDateModule
   ],
   providers: [
     ConnectionsService,

@@ -47,8 +47,8 @@ export class ConnectionsService {
   }
 
   // Questions
-  addQuestionForBucket(bucketId: string, text: string): Promise<IQuestion> {
-    return this.http.post<IQuestion>(`${environment.serviceUrl}/bucket/question/${bucketId}`, {text}).toPromise();
+  addQuestionForBucket(bucketId: string, text: string, eventDate: Date): Promise<IQuestion> {
+    return this.http.post<IQuestion>(`${environment.serviceUrl}/bucket/question/${bucketId}`, {text, eventDate}).toPromise();
   }
 
   addQuestionForForm(formId: string, text: string): Promise<IQuestion> {

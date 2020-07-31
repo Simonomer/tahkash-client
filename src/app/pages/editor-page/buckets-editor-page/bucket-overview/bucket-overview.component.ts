@@ -18,8 +18,6 @@ export class BucketOverviewComponent implements OnInit {
   bucketId: string;
   currentBucket$: Observable<IBucket>;
 
-  questions: IQuestion[];
-
   constructor(private bucketsManagementService: BucketsManagementService,
               private connectionsService: ConnectionsService,
               private route: ActivatedRoute) { }
@@ -29,23 +27,7 @@ export class BucketOverviewComponent implements OnInit {
       this.bucketId = paramsMap.get('bucketId');
       this.currentBucket$ = this.bucketsManagementService.buckets$.pipe(
         map(buckets => buckets?.find(bucket => bucket._id === this.bucketId)));
-      await this.updateQuestions();
     });
-  }
-
-  async updateQuestions(): Promise<void> {
-    const questions = await this.connectionsService.getBucketQuestions(this.bucketId);
-    this.questions = _orderBy(questions, question => question.priority);
-  }
-
-  async onDeleteClick(questionId: string): Promise<void> {
-    await this.connectionsService.removeQuestion(questionId);
-    await this.updateQuestions();
-  }
-
-  async createQuestion(text: string): Promise<void> {
-    await this.connectionsService.addQuestionForBucket(this.bucketId, text);
-    await this.updateQuestions();
   }
 
 }

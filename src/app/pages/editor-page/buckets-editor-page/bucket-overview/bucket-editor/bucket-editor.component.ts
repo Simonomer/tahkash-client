@@ -5,6 +5,7 @@ import {ActivatedRoute} from '@angular/router';
 import {CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
 import {QuestionsManagementService} from '../../../../../services/contexts.service/management.services/questions.management.service';
 import {Observable} from 'rxjs';
+import {FormControl} from '@angular/forms';
 
 @Component({
   selector: 'app-bucket-editor',
@@ -13,9 +14,12 @@ import {Observable} from 'rxjs';
 })
 export class BucketEditorComponent implements OnInit {
 
+  editable = true;
   bucketId: string;
   questions$: Observable<IQuestion[]>;
   @ViewChild('inputValue') inputElem: ElementRef;
+
+  date = new FormControl(new Date());
 
   constructor(
     private connectionsService: ConnectionsService,
@@ -37,15 +41,13 @@ export class BucketEditorComponent implements OnInit {
   }
 
   async createQuestion(text: string): Promise<void> {
-    await this.connectionsService.addQuestionForBucket(this.bucketId, text);
+    await this.connectionsService.addQuestionForBucket(this.bucketId, text, this.date.value);
     await this.questionsManagementService.updateBucketQuestionsFromServer(this.bucketId);
     this.inputElem.nativeElement.value = '';
   }
 
-  async drop(event: CdkDragDrop<string[]>): Promise<void> {
-    moveItemInArray(this.questionsManagementService.questions, event.previousIndex, event.currentIndex);
-    await this.connectionsService.modifyQuestions(this.questionsManagementService.questions);
+  async questionsChanged($event: IQuestion[]) {
+    await this.connectionsService.modifyQuestions($event);
     await this.questionsManagementService.updateBucketQuestionsFromServer(this.bucketId);
   }
-
 }

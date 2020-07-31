@@ -7,14 +7,15 @@
       <mat-icon>cancel</mat-icon>
     </button>
   </mat-form-field>
+
+  <mat-form-field appearance="fill">
+    <mat-label>Verbose datepicker</mat-label>
+    <input matInput [matDatepicker]="dp" [formControl]="date">
+    <mat-datepicker-toggle matSuffix [for]="dp"></mat-datepicker-toggle>
+    <mat-datepicker #dp></mat-datepicker>
+  </mat-form-field>
 </div>
 
-<div cdkDropList class="question-list" (cdkDropListDropped)="drop($event)">
-  <mat-card class="question-item" *ngFor="let question of (questions$ | async)" cdkDrag>
-    <span>{{question.text}}</span>
-    <button mat-icon-button color="primary" (click)="onDeleteClick(question._id)" aria-label="remove a question">
-      <mat-icon>cancel</mat-icon>
-    </button>
-  </mat-card>
-</div>
+<questions-days-editor (onQuestionsChange)="questionsChanged($event)" (onDeleteClick)="onDeleteClick($event)"
+                       [questions]="questions$ | async" [editable]=editable></questions-days-editor>
 

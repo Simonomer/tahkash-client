@@ -14,6 +14,7 @@ import {Observable} from 'rxjs';
 })
 export class FormEditorComponent implements OnInit {
 
+  editable = false;
   formId: string;
   questions$: Observable<IQuestion[]>;
   @ViewChild('inputValue') inputElem: ElementRef;
@@ -33,6 +34,7 @@ export class FormEditorComponent implements OnInit {
     });
   }
 
+
   async onDeleteClick(questionId: string): Promise<void> {
     await this.connectionsService.removeQuestion(questionId);
     await this.questionsManagementService.updateFormQuestionsFromServer(this.formId);
@@ -44,13 +46,13 @@ export class FormEditorComponent implements OnInit {
     this.inputElem.nativeElement.value = '';
   }
 
-  async drop(event: CdkDragDrop<string[]>): Promise<void> {
-    moveItemInArray(this.questionsManagementService.questions, event.previousIndex, event.currentIndex);
-    await this.connectionsService.modifyQuestions(this.questionsManagementService.questions);
+  async onQuestionChange($event: IQuestion[]) {
+    await this.connectionsService.modifyQuestions($event);
     await this.questionsManagementService.updateFormQuestionsFromServer(this.formId);
   }
 
   goToPreview(): void {
     this.router.navigate(['answer', this.formId]);
   }
+
 }

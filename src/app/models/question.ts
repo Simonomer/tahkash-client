@@ -4,4 +4,5 @@ export interface IQuestion {
   formId?: string;
   text: string;
   priority: number;
+  eventDate: Date;
 }

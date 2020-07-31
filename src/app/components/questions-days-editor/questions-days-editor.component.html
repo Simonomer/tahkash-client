@@ -1,0 +1,11 @@
+<div *ngFor="let item of questionsPerWeekDays | keyvalue">
+  <span>{{item.key}}</span>
+  <div cdkDropList class="question-list" [cdkDropListData]="item.value" (cdkDropListDropped)="drop($event)">
+    <mat-card class="question-item" *ngFor="let question of item.value" [cdkDragDisabled]="!editable" cdkDrag>
+      <span>{{question.text}}</span>
+      <button *ngIf="editable" mat-icon-button color="primary" (click)="onDeleteClick.emit(question._id)" aria-label="remove a question">
+        <mat-icon>cancel</mat-icon>
+      </button>
+    </mat-card>
+  </div>
+</div>
