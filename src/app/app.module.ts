@@ -46,7 +46,7 @@ import {BucketOverviewComponent} from './pages/editor-page/buckets-editor-page/b
 import {QuestionsDaysEditorComponent} from './components/questions-days-editor/questions-days-editor.component';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatNativeDateModule} from '@angular/material/core';
-
+import {MatSelectModule} from '@angular/material/select';
 
 @NgModule({
   declarations: [
@@ -89,6 +89,8 @@ import {MatNativeDateModule} from '@angular/material/core';
     FormsModule,
     ClipboardModule,
     MatRadioModule,
+    MatMenuModule,
+    MatSelectModule,
     MatMenuModule,
     MatDatepickerModule,
     MatNativeDateModule

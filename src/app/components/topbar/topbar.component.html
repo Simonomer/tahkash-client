@@ -1,22 +1,39 @@
 <mat-toolbar class="top-bar">
-  <span>Tahkash!</span>
+  <div>
+    <span>ניהול </span>
+    <span *ngIf="(isPageTypeIsForm$ | async)">תחק"שים</span>
+    <span *ngIf="!(isPageTypeIsForm$ | async)">מאגרים</span>
+  </div>
 
-  <span>
-    מחזור:
-    <select [(ngModel)]="selectedCourse">
-      <option *ngFor="let course of (courseOptions$ | async)" [value]="course">{{ course }}</option>
-    </select>
-  </span>
+  <div dir="rtl">
+    <mat-form-field appearance="fill">
+      <mat-label>מחזור</mat-label>
+      <mat-select [(value)]="selectedCourse">
+        <mat-option *ngFor="let course of (courseOptions$ | async)" [value]="course">
+          {{course}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
 
-  <span>
-    שבוע:
-    <select [(ngModel)]="selectedWeek">
-      <option *ngFor="let week of (weekOptions$ | async)" [value]="week">{{ week }}</option>
-    </select>
-  </span>
-
-  <button mat-raised-button color="primary" (click)="navigateTo('forms')">Forms</button>
-  <button mat-raised-button color="primary" (click)="navigateTo('buckets')">Buckets</button>
+    <mat-form-field appearance="fill">
+      <mat-label>שבוע</mat-label>
+      <mat-select [(value)]="selectedWeek">
+        <mat-option *ngFor="let week of (weekOptions$ | async)" [value]="week">
+          {{week}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+  <div>
+    <button mat-raised-button color="primary"
+            *ngIf="!(isPageTypeIsForm$ | async)"
+            [routerLink]="formsURL">מעבר לתחקש"ים
+    </button>
+    <button mat-raised-button color="primary"
+            *ngIf="(isPageTypeIsForm$ | async)"
+            [routerLink]="bucketsURL">מעבר למאגרים
+    </button>
+  </div>
 
 
 </mat-toolbar>
