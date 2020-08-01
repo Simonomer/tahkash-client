@@ -1,9 +1,9 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {IQuestion} from '../../models/question';
 import {IsraeliWeekDays} from '../interfaces';
-import {groupBy as _groupBy, mapKeys as _mapKeys} from 'lodash';
-import {Observable} from 'rxjs';
+import {groupBy as _groupBy, mapKeys as _mapKeys, sortBy as _sortBy } from 'lodash';
 import {CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
+import {KeyValue} from '@angular/common';
 
 @Component({
   selector: 'questions-days-editor',
@@ -37,5 +37,9 @@ export class QuestionsDaysEditorComponent {
     moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
     this.onQuestionsChange.emit(event.container.data);
   }
+
+  byDaysOrder = (a: KeyValue<string, IQuestion[]>, b: KeyValue<string, IQuestion[]>): number =>
+    this.WEEK_DAYS.indexOf(a.key as IsraeliWeekDays) < this.WEEK_DAYS.indexOf(b.key as IsraeliWeekDays) ? -1 :
+      (this.WEEK_DAYS.indexOf(b.key as IsraeliWeekDays) < this.WEEK_DAYS.indexOf(a.key as IsraeliWeekDays) ? 1 : 0);
 
 }

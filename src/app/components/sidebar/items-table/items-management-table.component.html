@@ -1,10 +1,6 @@
 <mat-card (click)="formClicked(item._id)" class="form-item" *ngFor="let item of items">
   <span>{{item.name}}</span>
-
-  <button mat-icon-button [matMenuTriggerFor]="menu">
-    <mat-icon>more_vert</mat-icon>
+  <button mat-fab color="primary" (click)="onDeleteFormClick(item._id)" aria-label="deleting a form">
+    <mat-icon>delete</mat-icon>
   </button>
-  <mat-menu #menu="matMenu">
-    <button mat-menu-item (click)="onDeleteFormClick(item._id)" aria-label="deleting a form">Delete</button>
-  </mat-menu>
 </mat-card>
